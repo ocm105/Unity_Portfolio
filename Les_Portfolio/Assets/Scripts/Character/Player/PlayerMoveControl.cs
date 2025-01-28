@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PlayerMoveControl : MonoBehaviour
 {
-    [SerializeField] GameObject fpsViewTarget;
-
     #region 점프
     [SerializeField] float playerJumpValue = 5f;
     [SerializeField] float playerGravity = 7f;
@@ -96,7 +94,6 @@ public class PlayerMoveControl : MonoBehaviour
 #endif
                         moveValue = Mathf.Clamp01(Mathf.Abs(movePostion.x) + Mathf.Abs(movePostion.z));
 
-                        this.transform.rotation = Quaternion.Euler(0, fpsViewTarget.transform.eulerAngles.y, 0);
                         characterController.Move(movePostion * playerSpeed * Time.fixedDeltaTime);
                         break;
 

@@ -25,7 +25,7 @@ public class ShoulderViewControl : MonoBehaviour
     private PointerEventData pointerEventData;
     private List<RaycastResult> pointerResults = new List<RaycastResult>();
 
-    private bool isMove = false;
+    private bool[] isMove = new bool[2];
 
     public bool IsDrag
     {
@@ -49,7 +49,10 @@ public class ShoulderViewControl : MonoBehaviour
 
     private void Init()
     {
-        isMove = false;
+        for (int i = 0; i < isMove.Length; i++)
+        {
+            isMove[i] = false;
+        }
 
         shoulderView.m_XAxis.m_InputAxisName = shoulderView.m_YAxis.m_InputAxisName = string.Empty;
         shoulderView.m_XAxis.m_InputAxisValue = shoulderView.m_YAxis.m_InputAxisValue = 0;
@@ -68,7 +71,6 @@ public class ShoulderViewControl : MonoBehaviour
     {
         // 화면을 눌렀을 때 움직임 O (UI 검사)
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-
         if (Input.GetMouseButtonUp(0))
         {
             Init();
@@ -84,10 +86,7 @@ public class ShoulderViewControl : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                MobileTouchCheck(Input.GetTouch(i));
-            }
+                MobileTouchCheck();
         }
 #endif
 
@@ -97,52 +96,52 @@ public class ShoulderViewControl : MonoBehaviour
     // Editor 용 Input 검사
     private void EditorInputCheck()
     {
-        if (!IsPointerOverUIObject(Input.mousePosition))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!IsPointerOverUIObject(Input.mousePosition))
             {
-                isMove = true;
+                isMove[0] = true;
                 prePos = Input.mousePosition;
             }
-            else if (Input.GetMouseButton(0) && isMove)
-            {
-                nowPos = Input.mousePosition;
-                moveValue = prePos - nowPos;
-                prePos = Input.mousePosition;
-                SetMove();
-            }
-            else
-            {
-                Init();
-            }
+        }
+        else if (Input.GetMouseButton(0) && isMove[0])
+        {
+            nowPos = Input.mousePosition;
+            moveValue = prePos - nowPos;
+            prePos = Input.mousePosition;
+            SetMove();
         }
     }
     // Mobile 용 Input 검사
-    private void MobileTouchCheck(Touch _touch)
+    private void MobileTouchCheck()
     {
-        if (!IsPointerOverUIObject(_touch.position))
+        for (int i = 0; i < Input.touchCount; i++)
         {
-            switch (_touch.phase)
+            Touch touch = Input.GetTouch(i);
+
+            switch (touch.phase)
             {
                 case TouchPhase.Began:      // 손가락이 화면을 터치 시작.
-                    isMove = true;
-                    prePos = _touch.position - _touch.deltaPosition;
+                    if (!IsPointerOverUIObject(touch.position))
+                    {
+                        isMove[i] = true;
+                        prePos = touch.position - touch.deltaPosition;
+                    }
                     break;
                 case TouchPhase.Moved:      // 화면에서 손가락이 움직임.
                 case TouchPhase.Stationary: // 손가락이 화면을 터치하고 있지만 움직이지 않음.
-                    if (isMove)
+                    if (isMove[i])
                     {
-                        nowPos = _touch.position - _touch.deltaPosition;
+                        nowPos = touch.position - touch.deltaPosition;
                         moveValue = prePos - nowPos;
-                        prePos = _touch.position - _touch.deltaPosition;
-
+                        prePos = touch.position - touch.deltaPosition;
                         SetMove();
                     }
                     break;
                 case TouchPhase.Ended:      // 화면에서 손가락이 들어 올려짐 터치 끝.
                 case TouchPhase.Canceled:   // 시스템이 터치 추적을 취소함.
                 default:
-                    Init();
+                    if (isMove[i]) Init();
                     break;
             }
         }
