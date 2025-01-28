@@ -1,0 +1,2 @@
+*.asset filter=lfs diff=lfs merge=lfs -text
+./Les_Portfolio/Assets/Fonts/NanumSquareRoundOTFEB.asset filter=lfs diff=lfs merge=lfs -text
