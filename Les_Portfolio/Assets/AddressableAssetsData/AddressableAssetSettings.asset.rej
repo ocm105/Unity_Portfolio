@@ -1,0 +1,25 @@
+diff a/Les_Portfolio/Assets/AddressableAssetsData/AddressableAssetSettings.asset b/Les_Portfolio/Assets/AddressableAssetsData/AddressableAssetSettings.asset	(rejected hunks)
+@@ -60,17 +60,16 @@
+   m_overridePlayerVersion: '[UnityEditor.PlayerSettings.bundleVersion]'
+   m_GroupAssets:
+   - {fileID: 11400000, guid: cd9a18a6ba974664e8f999d88aadcd09, type: 2}
+-  - {fileID: 11400000, guid: 87e5ed69943a68747a7cf0eef4819c10, type: 2}
+-  - {fileID: 11400000, guid: f038a2019d93e824fa26397760ae69f0, type: 2}
+-  - {fileID: 11400000, guid: e5a86ca1050a6294a8110f04f494417a, type: 2}
+-  - {fileID: 11400000, guid: 41919cfb13e29f74cb77184d5832d9b1, type: 2}
++  - {fileID: 11400000, guid: ae4d8291c3808a74f9056d9be3d240c2, type: 2}
+   - {fileID: 11400000, guid: 0b7d49b1134be6e41bdca46a6ae22a86, type: 2}
+   - {fileID: 11400000, guid: 645c04e3c86d701448ea7dbc77e744b4, type: 2}
+-  - {fileID: 11400000, guid: dffec143ee6b23d4d8dd6bebbb3bd863, type: 2}
+   - {fileID: 11400000, guid: f758bc2c6e280b9439e6a6da16b78f64, type: 2}
++  - {fileID: 11400000, guid: e5a86ca1050a6294a8110f04f494417a, type: 2}
++  - {fileID: 11400000, guid: 41919cfb13e29f74cb77184d5832d9b1, type: 2}
++  - {fileID: 11400000, guid: 87e5ed69943a68747a7cf0eef4819c10, type: 2}
++  - {fileID: 11400000, guid: dffec143ee6b23d4d8dd6bebbb3bd863, type: 2}
++  - {fileID: 11400000, guid: f038a2019d93e824fa26397760ae69f0, type: 2}
+   m_BuildSettings:
+-    m_CompileScriptsInVirtualMode: 0
+-    m_CleanupStreamingAssetsAfterBuilds: 1
+     m_LogResourceManagerExceptions: 1
+     m_BundleBuildPath: Temp/com.unity.addressables/AssetBundles
+   m_ProfileSettings:
