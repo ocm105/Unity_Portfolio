@@ -21,7 +21,7 @@ public class NpcBase : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            chatIcon.SetActive(true);
+            chatIcon.SetActive(false);
         }
     }
 }
