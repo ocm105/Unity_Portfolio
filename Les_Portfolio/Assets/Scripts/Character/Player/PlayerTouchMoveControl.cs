@@ -21,6 +21,7 @@ public class PlayerTouchMoveControl : MonoBehaviour
     private List<RaycastResult> pointerResults = new List<RaycastResult>();
 
     private PlayerInfo playerInfo;
+    private bool isMove = false;
 
     private void Awake()
     {
@@ -37,6 +38,10 @@ public class PlayerTouchMoveControl : MonoBehaviour
     {
         agent.enabled = false;
         pathParent?.SetActive(false);
+    }
+    private void Init()
+    {
+        isMove = false;
     }
 
     private void SetMove()
@@ -61,21 +66,24 @@ public class PlayerTouchMoveControl : MonoBehaviour
     private void FixedUpdate()
     {
 #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
-            EditorInputCheck();
+            Init();
+        }
+        else
+        {
+            EditorInputCheckMove();
         }
 #elif UNITY_ANDROID
-        if (Input.touchCount > 0 && Input.touchCount <= 2)
+        if (Input.touchCount <= 0 || Input.touchCount > 1)
         {
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                MobileTouchCheck(Input.GetTouch(i));
-            }
-        }        
+            Init();
+        }
+        else
+        {
+            MobileTouchCheckMove();
+        }
 #endif
-
         if (agent.remainingDistance > agent.stoppingDistance)
         {
             DrawPath();
@@ -86,37 +94,55 @@ public class PlayerTouchMoveControl : MonoBehaviour
             playerInfo._playerAniControl.SetMoveValue(0f);
             pathParent.gameObject.SetActive(false);
         }
-
     }
 
     #region Check
     // Editor 용 Input 검사
-    private void EditorInputCheck()
+    private void EditorInputCheckMove()
     {
-        if (!IsPointerOverUIObject(Input.mousePosition))
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (!IsPointerOverUIObject(Input.mousePosition))
+            {
+                isMove = true;
+                touchPos = Input.mousePosition;
+                SetMove();
+            }
+        }
+        else if (Input.GetMouseButton(0) && isMove)
         {
             touchPos = Input.mousePosition;
             SetMove();
         }
     }
     // Mobile 용 Input 검사
-    private void MobileTouchCheck(Touch _touch)
+    private void MobileTouchCheckMove()
     {
-        if (!IsPointerOverUIObject(_touch.position))
+        Touch touch = Input.GetTouch(0);
+
+        switch (touch.phase)
         {
-            switch (_touch.phase)
-            {
-                case TouchPhase.Began:      // 손가락이 화면을 터치 시작.
-                case TouchPhase.Moved:      // 화면에서 손가락이 움직임.
-                case TouchPhase.Stationary: // 손가락이 화면을 터치하고 있지만 움직이지 않음.
-                    touchPos = _touch.position;
+            case TouchPhase.Began:      // 손가락이 화면을 터치 시작.
+                if (!IsPointerOverUIObject(Input.mousePosition))
+                {
+                    isMove = true;
+                    touchPos = touch.position;
                     SetMove();
-                    break;
-                case TouchPhase.Ended:      // 화면에서 손가락이 들어 올려짐 터치 끝.
-                case TouchPhase.Canceled:   // 시스템이 터치 추적을 취소함.
-                default:
-                    break;
-            }
+                }
+                break;
+            case TouchPhase.Moved:      // 화면에서 손가락이 움직임.
+            case TouchPhase.Stationary: // 손가락이 화면을 터치하고 있지만 움직이지 않음.
+                if (isMove)
+                {
+                    touchPos = touch.position;
+                    SetMove();
+                }
+                break;
+            case TouchPhase.Ended:      // 화면에서 손가락이 들어 올려짐 터치 끝.
+            case TouchPhase.Canceled:   // 시스템이 터치 추적을 취소함.
+            default:
+                Init();
+                break;
         }
     }
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6574969285271918233}
   - component: {fileID: 8996517444980597331}
   - component: {fileID: 5276512937140938958}
+  - component: {fileID: 6938259878071453689}
   m_Layer: 9
   m_Name: WoodPlank_01
   m_TagString: Untagged
@@ -108,3 +109,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0242015, y: 0.033305805, z: 0.14324234}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!208 &6938259878071453689
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7483558178089845638}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.512, y: 0.017, z: 0.072000004}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

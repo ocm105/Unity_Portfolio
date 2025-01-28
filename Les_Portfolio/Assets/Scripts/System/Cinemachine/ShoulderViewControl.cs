@@ -77,7 +77,7 @@ public class ShoulderViewControl : MonoBehaviour
         }
         else
         {
-            EditorInputCheck();
+            EditorInputCheckMove();
         }
 #elif UNITY_ANDROID
         if (Input.touchCount <= 0 || Input.touchCount > 2)
@@ -86,7 +86,7 @@ public class ShoulderViewControl : MonoBehaviour
         }
         else
         {
-                MobileTouchCheck();
+                MobileTouchCheckMove();
         }
 #endif
 
@@ -94,7 +94,7 @@ public class ShoulderViewControl : MonoBehaviour
 
     #region Check
     // Editor 용 Input 검사
-    private void EditorInputCheck()
+    private void EditorInputCheckMove()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -113,7 +113,7 @@ public class ShoulderViewControl : MonoBehaviour
         }
     }
     // Mobile 용 Input 검사
-    private void MobileTouchCheck()
+    private void MobileTouchCheckMove()
     {
         for (int i = 0; i < Input.touchCount; i++)
         {

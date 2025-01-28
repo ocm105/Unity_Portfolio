@@ -708,7 +708,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154676300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.000000012666869, y: 0.95709205, z: -0.2897842, w: 0.000000041835822}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1147,7 +1147,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b5729f0347bb84c901ead96f010d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fpsViewTarget: {fileID: 343666365}
   playerJumpValue: 5
   playerGravity: 13
 --- !u!114 &219028803
@@ -1166,7 +1165,6 @@ MonoBehaviour:
   playerMoveControl: {fileID: 219028802}
   playerTouchMoveControl: {fileID: 219028807}
   playerAniControl: {fileID: 219028801}
-  playerBattleControl: {fileID: 0}
   player: {fileID: 846693930}
   npcControl: {fileID: 0}
 --- !u!143 &219028804
@@ -9210,10 +9208,6 @@ PrefabInstance:
     - target: {fileID: 459322566853779362, guid: 12786b453b3a7cc4a815f43857ab7460, type: 3}
       propertyPath: m_Name
       value: Wall_04
-      objectReference: {fileID: 0}
-    - target: {fileID: 942386865516021016, guid: 12786b453b3a7cc4a815f43857ab7460, type: 3}
-      propertyPath: m_RootOrder
-      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 942386865516021016, guid: 12786b453b3a7cc4a815f43857ab7460, type: 3}
       propertyPath: m_LocalPosition.x
