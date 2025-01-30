@@ -17,6 +17,7 @@
 - Google SpreadSheet와 연동
 - Google SpreadSheet URL
 - (https://docs.google.com/spreadsheets/d/1XCdzsYQIEroE5NoNgPrv2Ek071ot36CVL6TUbKG_BNI/edit?usp=sharing)
+![화면 캡처 2024-11-22 083013](https://github.com/user-attachments/assets/9e202f8a-4af6-4f29-9c2b-0a60f31b90be)
 
 # Cinemachine 카메라 제어
 
@@ -26,7 +27,7 @@ https://github.com/user-attachments/assets/0edbb98e-ed2e-463c-aae4-3eebff2a37e7
 
 # Webview
 
-![화면 캡처 2024-11-22 083013](https://github.com/user-attachments/assets/9e202f8a-4af6-4f29-9c2b-0a60f31b90be)
+
 
 # Scene Loading
 - Fade Out => 비동기 씬로드 => Fade In
