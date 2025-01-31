@@ -39,6 +39,8 @@ public class TitleView : UIView
     protected override void OnShow()
     {
         Init();
+        PlayGamesPlatform.Activate();
+        GPGLogin();
     }
 
     private void Init()
@@ -188,7 +190,7 @@ public class TitleView : UIView
     // 깃
     private void OnClick_Git()
     {
-        Application.OpenURL("https://github.com/ocm105/Les_Portfolio.git");
+        Application.OpenURL("https://github.com/ocm105/Unity_Portfolio.git");
     }
     #endregion
 }
