@@ -84,6 +84,5 @@ public partial class GoogleAdsView : UIView
             Debug.Log("Banner view full screen content closed.");
             bannerAdsBtn.interactable = true;
         };
-
     }
 }

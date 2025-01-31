@@ -20,7 +20,7 @@ public class CameraRayAlpha : MonoBehaviour
     private List<RaycastHit> hits = new List<RaycastHit>();
     private List<GameObject> obstacleObjects = new List<GameObject>();
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (hits != PlayerRaycast())
         {

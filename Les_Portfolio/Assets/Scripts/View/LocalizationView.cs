@@ -59,8 +59,7 @@ public class LocalizationView : UIView
         SetActiveButton(type);
         LoadingManager.Instance.SetFadeOut(() =>
         {
-            LocalizationManager.Instance.ChangeLanguage((int)languageType);
-            LoadingManager.Instance.SetFadeIn();
+            LocalizationManager.Instance.ChangeLanguage((int)languageType, () => LoadingManager.Instance.SetFadeIn());
         });
     }
     #endregion

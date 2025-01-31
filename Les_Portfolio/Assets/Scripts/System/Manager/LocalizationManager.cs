@@ -12,7 +12,6 @@ public class LocalizationManager : SingletonMonoBehaviour<LocalizationManager>
     const string tableName = "Localization Table";
 
     private int localIndex = 0;
-    private bool isChanging = false;
     private bool isCompleted = false;
 
     protected override void OnAwakeSingleton()
@@ -20,7 +19,7 @@ public class LocalizationManager : SingletonMonoBehaviour<LocalizationManager>
         base.OnAwakeSingleton();
         DontDestroyOnLoad(this);
     }
-
+    // 로컬라이징 데이터 다운
     public IEnumerator LoadData()
     {
         if (isCompleted == false)
@@ -54,23 +53,17 @@ public class LocalizationManager : SingletonMonoBehaviour<LocalizationManager>
 
         return key;
     }
-
-    IEnumerator _ChangeLanguage(int index)
+    // 언어 변경
+    public void ChangeLanguage(int index, Action call = null)
     {
-        isChanging = true;
-
+        StartCoroutine(_ChangeLanguage(index, call));
+    }
+    IEnumerator _ChangeLanguage(int index, Action call = null)
+    {
         yield return LocalizationSettings.InitializationOperation;
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[index];
         localIndex = index;
-
-        isChanging = false;
+        call?.Invoke();
     }
 
-    public void ChangeLanguage(int index)
-    {
-        if (isChanging)
-            return;
-
-        StartCoroutine(_ChangeLanguage(index));
-    }
 }

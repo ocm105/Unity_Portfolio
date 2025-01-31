@@ -125,11 +125,6 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
         yield return new WaitUntil(() => viewHandle.IsDone);
     }
 
-    public TextAsset GetTable(string key)
-    {
-        var table = Addressables.LoadAssetAsync<TextAsset>(key);
-        return table.WaitForCompletion();
-    }
     public GameObject GetFBX(string key)
     {
         GameObject fbx = fbxList.Where(x => x.name == key).FirstOrDefault();
@@ -144,6 +139,12 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
     {
         GameObject view = viewList.Where(x => x.name == key).FirstOrDefault();
         return view;
+    }
+
+    public TextAsset GetTable(string key)
+    {
+        var table = Addressables.LoadAssetAsync<TextAsset>(key);
+        return table.WaitForCompletion();
     }
     #endregion
 }

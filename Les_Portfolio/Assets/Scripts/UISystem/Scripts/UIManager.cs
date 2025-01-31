@@ -177,7 +177,20 @@ namespace UISystem
             GameObject go;
             try
             {
-                go = Instantiate(AddressableManager.Instance.GetPopup(name));
+                switch (type)
+                {
+                    case UILayerTypes.View:
+                        go = Instantiate(AddressableManager.Instance.GetView(name));
+                        break;
+                    case UILayerTypes.Popup:
+                        go = Instantiate(AddressableManager.Instance.GetPopup(name));
+                        break;
+                    case UILayerTypes.Footer:
+                    case UILayerTypes.Header:
+                    default:
+                        go = null;
+                        break;
+                }
             }
             catch (Exception)
             {

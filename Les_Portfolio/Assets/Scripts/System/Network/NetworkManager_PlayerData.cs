@@ -26,8 +26,10 @@ public partial class NetworkManager : SingletonMonoBehaviour<NetworkManager>
             switch (dataState)
             {
                 case GAMEDATA_STATE.CONNECTDATAERROR:
-                    break;
                 case GAMEDATA_STATE.PROTOCOLERROR:
+                    PopupState popup = Les_UIManager.Instance.Popup<BasePopup_OneBtn>().Open("데이터를 받아오지 못했습니다.");
+                    popup.OnClose = p => Application.Quit();
+                    popup.OnOK = p => Application.Quit();
                     break;
                 case GAMEDATA_STATE.REQUESTSUCCESS:
                     callback?.Invoke(CSVReader.ReadFromResource<PlayerData>(resData));

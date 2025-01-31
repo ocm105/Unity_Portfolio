@@ -46,7 +46,6 @@ public class PlayerMoveControl : MonoBehaviour
         playerInfo._playerAniControl.SetMoveValue(0f);
     }
 
-
     public void Jump()
     {
         if (IsJump == false)
@@ -89,8 +88,7 @@ public class PlayerMoveControl : MonoBehaviour
                     case CameraViewType.FPSView:
                         movePostion = this.transform.right * mobX + this.transform.forward * mobZ;
 #if UNITY_EDITOR_WIN
-                        movePostion.x += winX;
-                        movePostion.z += winZ;
+                        movePostion = this.transform.right * winX + this.transform.forward * winZ;
 #endif
                         moveValue = Mathf.Clamp01(Mathf.Abs(movePostion.x) + Mathf.Abs(movePostion.z));
 
