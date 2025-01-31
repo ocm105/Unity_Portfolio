@@ -73,6 +73,7 @@ public class TitleView : UIView
         OnChange_MainObject(MainState.Start);
     }
 
+    // 리소스 다운로드
     private IEnumerator AddressableLoad()
     {
         loadBar.fillAmount = 0f;
@@ -90,6 +91,7 @@ public class TitleView : UIView
         loadText.text = $"리소스 다운로드 {Mathf.RoundToInt(loadBar.fillAmount * 100)}%";
     }
 
+    // 로컬라이징 다운로드
     private IEnumerator LocalizationLoad()
     {
         loadBar.fillAmount = 0f;
@@ -101,6 +103,7 @@ public class TitleView : UIView
         loadText.text = $"언어팩 다운로드 {Mathf.RoundToInt(loadBar.fillAmount * 100)}%";
     }
 
+    // 게임 데이터 다운로드
     private IEnumerator GameDataLoad()
     {
         loadBar.fillAmount = 0f;

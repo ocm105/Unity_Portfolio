@@ -42,51 +42,53 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
     {
         yield return StartCoroutine(GetSizeCoroutine(key));
 
-        // Debug.Log(sizeHandle.Status);
+        // 다운로드 할 것을 가져오고 다운로드 할 것이 있을 때
         if (sizeHandle.Status == AsyncOperationStatus.Succeeded && downSize > 0)
         {
             AsyncOperationHandle downloadHandle = Addressables.DownloadDependenciesAsync(key, true);
+            // 다운로드 완료
+            downloadHandle.Completed += (handle) => DownloadComplete(handle.Status, callback);
 
-            downloadHandle.Completed += (handler) =>
-            {
-                WindowDebug.SuccessLog("Addressable DownLoad Complete");
-
-                downPercent = 1f;
-                isComplete = true;
-                callback?.Invoke(handler.Status);
-            };
-
+            // 다운로드 중
             while (!downloadHandle.IsDone && downloadHandle.IsValid())
             {
-                if (downloadHandle.Status == AsyncOperationStatus.Failed)
-                {
-                    WindowDebug.FailLog("Addressable DownLoad Fail");
-                }
                 downPercent = downloadHandle.PercentComplete;
                 yield return null;
+
+                // 다운로드 실패
+                if (downloadHandle.Status == AsyncOperationStatus.Failed)
+                    DownloadFail();
             }
         }
+        // 다운로드 할 것을 못 가져왔을 때
         else if (sizeHandle.Status == AsyncOperationStatus.Failed)
-        {
-            WindowDebug.FailLog("Addressable DownLoad Fail");
-            PopupState popupState = Les_UIManager.Instance.Popup<BasePopup_OneBtn>().Open("리소스 다운로드 실패");
-            popupState.OnOK = p => Application.Quit();
-        }
+            DownloadFail();
+        // 이미 다운로드가 되어있을 때
         else
-        {
-            WindowDebug.SuccessLog("Addressable Already DownLoad");
-
-            downPercent = 1f;
-            isComplete = true;
-            callback?.Invoke(AsyncOperationStatus.Succeeded);
-        }
+            DownloadComplete(AsyncOperationStatus.Succeeded, callback);
     }
+    // 다운받을 크기 Get
     private IEnumerator GetSizeCoroutine(object key)
     {
         sizeHandle = Addressables.GetDownloadSizeAsync(key);
         yield return new WaitUntil(() => sizeHandle.IsDone);
         downSize = sizeHandle.Result;
         yield break;
+    }
+    // 다운로드 성공
+    private void DownloadComplete(AsyncOperationStatus status, Action<AsyncOperationStatus> callback = null)
+    {
+        WindowDebug.SuccessLog("Addressable DownLoad Complete");
+        downPercent = 1f;
+        isComplete = true;
+        callback?.Invoke(status);
+    }
+    // 다운로드 실패
+    private void DownloadFail()
+    {
+        WindowDebug.FailLog("Addressable DownLoad Fail");
+        PopupState popupState = Les_UIManager.Instance.Popup<BasePopup_OneBtn>().Open("리소스 다운로드 실패");
+        popupState.OnOK = p => Application.Quit();
     }
     #endregion
 
