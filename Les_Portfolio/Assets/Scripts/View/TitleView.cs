@@ -61,12 +61,15 @@ public class TitleView : UIView
         // Resource Down
         yield return StartCoroutine(AddressableLoad());
 
+        yield return new WaitForSeconds(0.1f);
         // Localization Data Load
         yield return StartCoroutine(LocalizationLoad());
 
+        yield return new WaitForSeconds(0.1f);
         // Game Data Load
         yield return StartCoroutine(GameDataLoad());
 
+        yield return new WaitForSeconds(0.1f);
         OnChange_MainObject(MainState.Start);
     }
 
