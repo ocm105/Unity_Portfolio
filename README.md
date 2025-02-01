@@ -1,4 +1,4 @@
-# Unity Portfolio
+![image](https://github.com/user-attachments/assets/b6a8b1b1-9bfa-4a40-ac39-455be89fcdbb)# Unity Portfolio
 - Unity 버전 6000.0.33f1
 
 # 보유 기술
@@ -31,9 +31,36 @@ AWS3에 Bundle을 업로드하여 사용했습니다.
 ![image](https://github.com/user-attachments/assets/f63cc8e5-0b15-420f-b180-f46aeb2ac49a)
 ![image](https://github.com/user-attachments/assets/7315d8a7-9fe1-44aa-b4da-b173af3c5f97)
 ![image](https://github.com/user-attachments/assets/6fe7b27c-8c51-4773-bcc8-b930c100f3b2)
+
 ![image](https://github.com/user-attachments/assets/ccc0df9b-61b2-4c5f-9769-edf0177b0cf6)
 
 # Google Admob
+- Google Admob의 구성은 배너, 전면, 보상형, 리워드, 앱 열기로 5개로 구성하였습니다.
+
+- 배너
+
+![image](https://github.com/user-attachments/assets/ee28c9ff-2919-4c49-a1e3-58dd5d4daf1e)
+![image](https://github.com/user-attachments/assets/9d0a6553-30b2-4cf0-a4aa-7b2c8ce3751e)
+
+- 전면
+
+![image](https://github.com/user-attachments/assets/f1cd733f-395f-4cce-9cc0-d431db438525)
+![image](https://github.com/user-attachments/assets/7205de1a-31a8-44f1-892f-8be75d877059)
+
+- 보상형
+
+![image](https://github.com/user-attachments/assets/4c05a802-a80b-4872-bbcf-b40a778aa369)
+![image](https://github.com/user-attachments/assets/f69bb36e-0d3f-4039-86e0-c416097c097c)
+
+- 리워드
+
+![image](https://github.com/user-attachments/assets/1f2dd208-7e64-4af9-9292-9c24ab223227)
+![image](https://github.com/user-attachments/assets/f26d91e8-18c2-448d-a077-496a471f6984)
+
+- 앱 열기
+
+![image](https://github.com/user-attachments/assets/3fa6eebf-9efe-4ef5-87d2-c0fc0f093e4a)
+![image](https://github.com/user-attachments/assets/5f5b1822-7c34-46cc-a266-3512e72505fe)
 
 # Unity Ads
 
