@@ -22,11 +22,16 @@
 ![image](https://github.com/user-attachments/assets/07a57465-b53d-4105-82ca-b3be73777c4d)
 
 # Addressable
-- AWS3 bucket에 Addressable data를 올리고 Title 화면에서 다운로드 후 사용
+- 사용되는 리소스를 Addressable에서 목적에 따라 Group화를 하여 빌드 후 
+AWS3에 Bundle을 업로드하여 사용했습니다.
+- 실행 시 AWS3 경로에서 다운로드 할 크기를 받아와 다운로드 할 것이 있으면 다운로드를 진행 합니다.
+- 그 후 목적에 따라 Handle와 List를 만들어 저장하여 사용합니다.
 
-![add3](https://github.com/user-attachments/assets/b6fe0447-06c3-48ce-bd92-556ab3a28b6a)
-![add2](https://github.com/user-attachments/assets/2b3810ad-e72e-42ee-af2c-e9205c1c873c)
-![add1](https://github.com/user-attachments/assets/b196d3d1-5f6a-4e40-b02a-c4ea0e256ef7)
+![image](https://github.com/user-attachments/assets/d2a441fa-c365-4f63-9681-e1ab1a8ba6fe)
+![image](https://github.com/user-attachments/assets/f63cc8e5-0b15-420f-b180-f46aeb2ac49a)
+![image](https://github.com/user-attachments/assets/7315d8a7-9fe1-44aa-b4da-b173af3c5f97)
+![image](https://github.com/user-attachments/assets/6fe7b27c-8c51-4773-bcc8-b930c100f3b2)
+![image](https://github.com/user-attachments/assets/ccc0df9b-61b2-4c5f-9769-edf0177b0cf6)
 
 # Google Admob
 
