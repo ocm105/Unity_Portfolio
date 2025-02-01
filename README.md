@@ -2,7 +2,7 @@
 - Unity 버전 6000.0.33f1
 
 # 보유 기술
-- Google Play Games Login
+- Google Play Games Service
 - Addressable
 - Google Admob
 - Unity Ads
@@ -14,7 +14,7 @@
 - Network System
 - Occlusion
   
-# Google PlayGames Login
+# Google Play Games Service
 - 구글 플레이 게임즈 연동
 
 ![image](https://github.com/user-attachments/assets/7b8d2579-a3a9-487e-8d1a-0f00944d1a09)
