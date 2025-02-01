@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/b6a8b1b1-9bfa-4a40-ac39-455be89fcdbb)# Unity Portfolio
+# Unity Portfolio
 - Unity 버전 6000.0.33f1
 
 # 보유 기술
@@ -17,8 +17,8 @@
 # Google PlayGames Login
 - 구글 플레이 게임즈 연동
 
-![image](https://github.com/user-attachments/assets/f4768d84-ed25-4ef8-9b55-ffa34e0e7ad9)
-![image](https://github.com/user-attachments/assets/32977b49-d73e-43a7-b314-b5bc198178f3)
+![image](https://github.com/user-attachments/assets/7b8d2579-a3a9-487e-8d1a-0f00944d1a09)
+![image](https://github.com/user-attachments/assets/6c37cb93-40be-4281-ba58-3284c56896d0)
 ![image](https://github.com/user-attachments/assets/07a57465-b53d-4105-82ca-b3be73777c4d)
 
 # Addressable
@@ -28,11 +28,10 @@ AWS3에 Bundle을 업로드하여 사용했습니다.
 - 그 후 목적에 따라 Handle와 List를 만들어 저장하여 사용합니다.
 
 ![image](https://github.com/user-attachments/assets/d2a441fa-c365-4f63-9681-e1ab1a8ba6fe)
-![image](https://github.com/user-attachments/assets/f63cc8e5-0b15-420f-b180-f46aeb2ac49a)
+![image](https://github.com/user-attachments/assets/baf2d4f8-0aeb-424a-8efa-09dbdb8f3d8c)
 ![image](https://github.com/user-attachments/assets/7315d8a7-9fe1-44aa-b4da-b173af3c5f97)
 ![image](https://github.com/user-attachments/assets/6fe7b27c-8c51-4773-bcc8-b930c100f3b2)
-
-![image](https://github.com/user-attachments/assets/ccc0df9b-61b2-4c5f-9769-edf0177b0cf6)
+![image](https://github.com/user-attachments/assets/a2729f09-c8b4-46d6-8643-2fbe2ec41340)
 
 # Google Admob
 - Google Admob의 구성은 배너, 전면, 보상형, 리워드, 앱 열기로 5개로 구성하였습니다.
