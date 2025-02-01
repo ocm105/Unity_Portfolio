@@ -1,8 +1,19 @@
 # Unity Portfolio
 - Unity 버전 6000.0.33f1
-$ Unity Portfolio
-- 
 
+# 보유 기술
+- Google Play Games Login
+- Addressable
+- Google Admob
+- Unity Ads
+- Localization
+- Camera Control
+- Player Control
+- Webview
+- LoadingManager
+- Network System
+- Occlusion
+  
 # Google PlayGames Login
 - 구글 플레이 게임즈 연동
 
