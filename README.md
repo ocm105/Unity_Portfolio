@@ -1,6 +1,10 @@
 # Les_Portfolio
 
 # Google PlayGames Login
+- 구글 플레이 게임즈 연동
+![image](https://github.com/user-attachments/assets/f4768d84-ed25-4ef8-9b55-ffa34e0e7ad9)
+![image](https://github.com/user-attachments/assets/32977b49-d73e-43a7-b314-b5bc198178f3)
+![image](https://github.com/user-attachments/assets/07a57465-b53d-4105-82ca-b3be73777c4d)
 
 # Addressable
 - AWS3 bucket에 Addressable data를 올리고 Title 화면에서 다운로드 후 사용
