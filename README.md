@@ -106,18 +106,21 @@ AWS3에 Bundle을 업로드하여 사용했습니다.
 ![image](https://github.com/user-attachments/assets/10b124ef-fae1-4ad0-8222-eb7c57094272)
 
 - FPS 타입은 Player가 바라보는 View Target을 만들어 구현하였습니다.
-- 영상URL : https://drive.google.com/file/d/1YSw87zzuWIRfqzYaPbK3uKkx6Vr8vjM_/view?usp=drive_link
+
+https://github.com/user-attachments/assets/bbff7d72-4485-44e6-a550-e35cbdd4ccb8
 
 ![image](https://github.com/user-attachments/assets/1d9e47e2-b8a6-4a1b-8495-5267af073138)
 
 - Quarter 타입은 Cinemachine의 Aim을 Player에 두고 Quarter View에서 바라보게 구현하고 Camera 부터 Player까지 RayCast를 쏴 해당된 Layer의 물체를 투명하게 하여 구현했습니다.
-- 영상 URL : https://drive.google.com/file/d/1N7lmXPc71qX96cshd5QT8tfeogAzKNa_/view?usp=drive_link
+
+https://github.com/user-attachments/assets/07eb78e0-0418-4e71-85c2-d48762db01f0
 
 ![image](https://github.com/user-attachments/assets/92220632-cbfa-47b3-b772-3d84a5dd6ded)
 ![image](https://github.com/user-attachments/assets/d40a2359-95fd-4e06-8b75-d73a576e5b61)
 
 - Shoulder 타입은 Cinemachine의 FreeLook을 사용하여 구현하였으며, Player가 겹칠 때 DitherShader를 사용하여 구현하였습니다.
-- 영상 URL : https://drive.google.com/file/d/1Rb8_6ee7732insndRHAnjLXKxj8yjLNr/view?usp=drive_link
+
+https://github.com/user-attachments/assets/68ae6880-605d-4027-84f2-2d94077dc6fb
 
 ![image](https://github.com/user-attachments/assets/e7913a78-71aa-4157-ac2b-ef26b6eff5f3)
 
@@ -145,33 +148,43 @@ AWS3에 Bundle을 업로드하여 사용했습니다.
 ![image](https://github.com/user-attachments/assets/b029cbb9-48ec-4a7a-a1d8-2bccf5994e90)
 ![image](https://github.com/user-attachments/assets/47fbea66-f9fc-4496-99f1-e74b28d3cd42)
 
-# Scene Loading
-- Fade Out => 비동기 씬로드 => Fade In
+# LoadingManager
+- Scene, Data, Network 및 여러가지 Loading이 필요한 작업을 위해 만든 Manager입니다.
+- 구성은 FadeIn / Out 과 대기화면, SceneLoad으로 3가지 입니다.
+
+- FadeIn / Out은 Dotween을 활용하여 구현했습니다.
   
-![Fade](https://github.com/user-attachments/assets/3f151b13-028b-4506-a446-594227b08c3f)
-![화면 캡처 2024-11-22 081333](https://github.com/user-attachments/assets/53b839f7-c4c1-4b21-8359-eaa9b65c7e56)
+![image](https://github.com/user-attachments/assets/18d145e9-c2b5-45b4-97ff-0257d15c709f)
+
+- 대기화면은 Animation을 활용하였고, 로딩이 필요하면 키고 끝나면 끄게 했습니다.
+- 
+![image](https://github.com/user-attachments/assets/2124246e-ab1d-4d0c-a8dc-d3c8069a142c)
+
+![image](https://github.com/user-attachments/assets/4dc85c94-bba6-4800-b578-34b045489813)
+
+- SceneLoad는 비동기로 처리하였으며, Fade In / Out을 활용했습니다.
+- 
+![image](https://github.com/user-attachments/assets/f089b9f9-6949-4b7c-93bd-7dfe4b40458a)
+
+# Network System
+- Network System은 주로 팀원들이 따로 작업하는 경우가 있어 Git, Svn 같은 관리 툴에서 사용할 때 충돌이 자주나서 Partial Class를 사용하여 개별 작업하도록 만들었습니다.
+- 기본적으로 Get과 Post와 Network Check로 구성했습니다.
+
+- Get
+
+![image](https://github.com/user-attachments/assets/7c96f7cf-8da1-47f9-b5a3-3332a0feccac)
+
+- Post
+
+![image](https://github.com/user-attachments/assets/10e1b449-e504-4f58-9d43-c3ed287cb6ac)
+
+- Network Check
+
+![image](https://github.com/user-attachments/assets/e1c35de0-d1bb-4921-b457-e7b54d8373eb)
 
 # Occlusion
+- Unity Occlusion을 사용하여 구현하였습니다.
 
-https://github.com/user-attachments/assets/59c8b487-5f37-473a-ac0f-c1bcee46d6c7
+https://github.com/user-attachments/assets/2eac7e5d-b9cb-4504-8113-e4f6cd8a34f7
 
-# Network
-- Script의 가독성과 팀 작업의 효율을 위해 partial Class를 사용
 
-![Network1](https://github.com/user-attachments/assets/a6e67da9-63e5-49b7-ac75-2c624298c127)
-![Network2](https://github.com/user-attachments/assets/e2dbc1a6-a945-44ea-8a72-9c17229cb809)
-![Network3](https://github.com/user-attachments/assets/d7bdf95c-eaef-4e4c-bb0f-7655d2d89315)
-
-# GameDataManager
-- 전체적으로 가져온 게임 데이터를 저장하여 사용하는 메니저를 만들어 사용
-
-![화면 캡처 2024-11-22 092128](https://github.com/user-attachments/assets/a6a99a15-2918-49d6-9525-00608de3ec44)
-
-# 기타 Data
-- 기획자분들과 협업을 위해 Google SpreadSheet를 사용하였습니다.
-
-- Descript (https://docs.google.com/spreadsheets/d/13vYZKF0P7r1ipcfow_eBzGAeFe0IoGscadxUe-_L8oU/edit?usp=sharing)
-![data2](https://github.com/user-attachments/assets/4235af72-b5ac-4d07-bd4b-99d8fcd21918)
-
-- Player (https://docs.google.com/spreadsheets/d/117WcavqmLLFPs3JXc53kY7xaCW4Z8mbMcyv3iAhh3bw/edit?usp=sharing)
-![data4](https://github.com/user-attachments/assets/0b2b9053-d054-4366-accc-4744c5c7a434)
