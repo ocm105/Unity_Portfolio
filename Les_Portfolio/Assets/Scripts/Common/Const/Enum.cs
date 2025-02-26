@@ -48,3 +48,20 @@ public enum PlayerAniState
     Jump,
 }
 #endregion
+
+#region Game
+public enum BallType
+{
+    One,
+    Two,
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten
+}
+
+#endregion
