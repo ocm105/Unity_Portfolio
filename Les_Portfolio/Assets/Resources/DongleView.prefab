@@ -534,7 +534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4212975549300403299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3929,7 +3929,7 @@ MonoBehaviour:
   poolCount: 50
   originPos: {x: 0, y: 215}
   sfxPoolCount: 20
-  mergeEffect: {fileID: 0}
+  mergeEffect: {fileID: 8020808120545640707, guid: b4e479e134847f34888b5d1dd6766f54, type: 3}
   effectParent: {fileID: 8966598294840569581}
   endTrigger: {fileID: 2389164542476034548}
 --- !u!222 &1205032599335627014
