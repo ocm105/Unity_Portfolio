@@ -4,26 +4,26 @@ using UISystem;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class FeroControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
+public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
     private const float MAX_LEFT = -295f;
     private const float MAX_RIGHT = 295f;
     private const float FIX_VALUE = 7.5f;
-    [SerializeField] CandyView candyView;
+    [SerializeField] DongleView dongleView;
     [SerializeField] RectTransform feroRect;
 
-    [SerializeField] Transform candyCreatePos;          // 캔디 생성 위치
-    [SerializeField] Transform candyPushPos;            // 캔디 넣는 위치
-    [SerializeField] GameObject candyPrefab;
-    [SerializeField] int[] candyPercents;
+    [SerializeField] Transform dongleCreatePos;          // 동글 생성 위치
+    [SerializeField] Transform donglePushPos;            // 동글 넣는 위치
+    [SerializeField] GameObject donglePrefab;
+    [SerializeField] int[] donglePercents;
     [SerializeField] GameObject lineObject;
 
     [SerializeField] int poolCount = 50;
     [SerializeField] Vector2 originPos;
 
-    private Queue<CandyControl> candyQueue = new Queue<CandyControl>();
-    private CandyControl currentCandy;                    // 현재 들고 있는 캔디
-    private int nextCandyIndex = -1;
+    private Queue<DongleControl> dongleQueue = new Queue<DongleControl>();
+    private DongleControl currentDongle;                    // 현재 들고 있는 동글
+    private int nextDongleIndex = -1;
 
     private float fixWidth = 0f;
     private float fixLeft = 0;
@@ -49,20 +49,20 @@ public class FeroControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
         feroRect.anchoredPosition = originPos;
         isPointDown = false;
         isPush = false;
-        nextCandyIndex = -1;
+        nextDongleIndex = -1;
         lineObject.SetActive(false);
         isEnd = false;
-        InitCandyPool();
+        InitDonglePool();
     }
-    public void FeroControlStart()
+    public void LauncherControlStart()
     {
-        candyCreatePos.gameObject.SetActive(true);
-        candyPushPos.gameObject.SetActive(true);
-        OutCandyPool();
+        dongleCreatePos.gameObject.SetActive(true);
+        donglePushPos.gameObject.SetActive(true);
+        OutDonglePool();
     }
-    public void CreateCandy()
+    public void CreateDongle()
     {
-        CreateCandyPool();
+        CreateDonglePool();
         CreateEffectPool();
     }
 
@@ -82,7 +82,7 @@ public class FeroControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
 
         isPointDown = false;
         if (isPush == false)
-            StartCoroutine(PushCandy());
+            StartCoroutine(PushDongle());
     }
     public void OnDrag(PointerEventData eventData)
     {
@@ -107,7 +107,7 @@ public class FeroControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
         {
             if (isEnd == true) return;
             if (isPush == false)
-                StartCoroutine(PushCandy());
+                StartCoroutine(PushDongle());
         }
     }
 #else
@@ -115,13 +115,13 @@ public class FeroControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
     #endregion
 
     #region Function
-    private int GetRandomCandy()
+    private int GetRandomDongle()
     {
         int add = 0, index = 0;
         int ran = Random.Range(1, 101);         // 100% 
-        for (int i = 0; i < candyPercents.Length; i++)
+        for (int i = 0; i < donglePercents.Length; i++)
         {
-            add += candyPercents[i];
+            add += donglePercents[i];
             if (add >= ran)
             {
                 index = i;
@@ -162,82 +162,82 @@ public class FeroControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPo
     }
     #endregion
 
-    private void CreateCandyPool()
+    private void CreateDonglePool()
     {
         for (int i = 0; i < poolCount; i++)
         {
-            GameObject go = Instantiate(candyPrefab, candyCreatePos);
+            GameObject go = Instantiate(donglePrefab, dongleCreatePos);
             go.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
             go.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             go.GetComponent<CircleCollider2D>().enabled = false;
             go.SetActive(false);
-            candyQueue.Enqueue(go.GetComponent<CandyControl>());
+            dongleQueue.Enqueue(go.GetComponent<DongleControl>());
         }
     }
-    public void InitCandyPool()
+    public void InitDonglePool()
     {
-        GameObject[] objs = new GameObject[candyPushPos.childCount];
+        GameObject[] objs = new GameObject[donglePushPos.childCount];
 
-        for (int i = 0; i < candyPushPos.childCount; i++)
+        for (int i = 0; i < donglePushPos.childCount; i++)
         {
-            objs[i] = candyPushPos.transform.GetChild(i).gameObject;
+            objs[i] = donglePushPos.transform.GetChild(i).gameObject;
         }
         for (int i = 0; i < objs.Length; i++)
         {
-            CandyControl cc = objs[i].GetComponent<CandyControl>();
-            InCandyPool(cc);
+            DongleControl cc = objs[i].GetComponent<DongleControl>();
+            InDonglePool(cc);
         }
-        if (currentCandy != null)
+        if (currentDongle != null)
         {
-            InCandyPool(currentCandy);
+            InDonglePool(currentDongle);
         }
     }
-    public void InCandyPool(CandyControl target)
+    public void InDonglePool(DongleControl target)
     {
-        target.transform.SetParent(candyCreatePos);
+        target.transform.SetParent(dongleCreatePos);
         target.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         target.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         target.GetComponent<CircleCollider2D>().enabled = false;
-        candyQueue.Enqueue(target);
+        dongleQueue.Enqueue(target);
         target.gameObject.SetActive(false);
     }
-    private void OutCandyPool()
+    private void OutDonglePool()
     {
-        currentCandy = candyQueue.Dequeue();
-        currentCandy.gameObject.SetActive(true);
+        currentDongle = dongleQueue.Dequeue();
+        currentDongle.gameObject.SetActive(true);
 
-        if (nextCandyIndex == -1)
-            currentCandy.SetCandy((BallType)GetRandomCandy());
+        if (nextDongleIndex == -1)
+            currentDongle.SetDongle((DongleType)GetRandomDongle());
         else
-            currentCandy.SetCandy((BallType)nextCandyIndex);
+            currentDongle.SetDongle((DongleType)nextDongleIndex);
 
         lineObject.SetActive(true);
 
 
-        fixLeft = MAX_LEFT + (FIX_VALUE * (int)currentCandy._ballType);
-        fixRight = MAX_RIGHT - (FIX_VALUE * (int)currentCandy._ballType);
+        fixLeft = MAX_LEFT + (FIX_VALUE * (int)currentDongle._dongleType);
+        fixRight = MAX_RIGHT - (FIX_VALUE * (int)currentDongle._dongleType);
 
         // 여기 다음 캔디 생성 -> cmd 에 함수 호출하여 넘기기
-        nextCandyIndex = GetRandomCandy();
-        candyView.ShowNextCandy(nextCandyIndex);
+        nextDongleIndex = GetRandomDongle();
+        dongleView.ShowNextDongle(nextDongleIndex);
     }
 
-    private IEnumerator PushCandy()
+    private IEnumerator PushDongle()
     {
         // SoundManager.Instance.PlaySFXSound("drop");
         isPush = true;
         endTrigger.SetActive(false);
         lineObject.SetActive(false);
 
-        currentCandy.transform.SetParent(candyPushPos);
-        currentCandy.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        currentCandy.GetComponent<CircleCollider2D>().enabled = true;
+        currentDongle.transform.SetParent(donglePushPos);
+        currentDongle.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        currentDongle.GetComponent<CircleCollider2D>().enabled = true;
 
         yield return new WaitForSeconds(1f);
 
         endTrigger.SetActive(true);
 
-        OutCandyPool();
+        OutDonglePool();
         isPush = false;
 
         yield break;

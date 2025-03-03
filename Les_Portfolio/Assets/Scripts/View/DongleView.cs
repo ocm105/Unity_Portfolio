@@ -5,25 +5,22 @@ using TMPro;
 
 namespace UISystem
 {
-    public enum CandyGameType
+    public enum DongleGameType
     {
         Start,
         Game
     }
-    public class CandyView : UIView
+    public class DongleView : UIView
     {
-        [SerializeField] FeroControl feroControl;
+        [SerializeField] LauncherControl launcherControl;
         [SerializeField] GameObject[] canvasGroups;
 
         [Header("Start")]
         [SerializeField] Button startButton;
-        [SerializeField] Button rankingButton;
-        [SerializeField] TextMeshProUGUI userCoin;
 
         [Header("Game")]
-        [SerializeField] Sprite[] candySprites;
-        [SerializeField] Image nextCandyImage;
-        [SerializeField] TextMeshProUGUI[] rankingScoreTexts;   // 랭킹 점수들
+        [SerializeField] Sprite[] dongleSprites;
+        [SerializeField] Image nextDongleImage;
         [SerializeField] TextMeshProUGUI maxScoreText;      // 최고 점수
         [SerializeField] TextMeshProUGUI nowScoreText;      // 현재 점수
         private int[] rankingScores;
@@ -36,7 +33,7 @@ namespace UISystem
         [SerializeField] Sprite[] countSprites;
 
         [SerializeField] Button ExitButton;
-        private CandyGameType candyGameType = CandyGameType.Start;
+        private DongleGameType dongleGameType = DongleGameType.Start;
 
 
         public void Show(object param)
@@ -47,14 +44,13 @@ namespace UISystem
 
         protected override void OnFirstShow()
         {
-            startButton.onClick.AddListener(CandyGameStart);
-            rankingButton.onClick.AddListener(OpenRankingPopup);   // 랭킹 불러오기
-            ExitButton.onClick.AddListener(CandyGameExit);
+            startButton.onClick.AddListener(GameStart);
+            ExitButton.onClick.AddListener(GameExit);
         }
 
         private void SetInfo()
         {
-            CandyGameInit();
+            GameInit();
             // try
             // {
             //     SoundManager.Instance.PlayBGMSound(BgmKey);
@@ -66,24 +62,23 @@ namespace UISystem
             //         SoundManager.Instance.PlayBGMSound(BgmKey);
             //     });
             // }
-            feroControl.CreateCandy();
-            // CandyGameStateChange(CandyGameType.Start);
+            launcherControl.CreateDongle();
+            // DongleGameStateChange(DongleGameType.Start);
         }
 
-        private void CandyGameInit()
+        private void GameInit()
         {
-            CandyGameStateChange(CandyGameType.Start);
-            GetUserCoin();
+            DongleGameStateChange(DongleGameType.Start);
             GameDataInit();
             countObj.SetActive(false);
         }
 
         #region Default
         /// <summary> 게임 상태 변경 </summary>
-        private void CandyGameStateChange(CandyGameType state)
+        private void DongleGameStateChange(DongleGameType state)
         {
             bool isActive = false;
-            candyGameType = state;
+            dongleGameType = state;
             for (int i = 0; i < canvasGroups.Length; i++)
             {
                 isActive = (int)state == i ? true : false;
@@ -109,63 +104,30 @@ namespace UISystem
         }
 
         /// <summary> 게임나가기 </summary>
-        private void CandyGameExit()
+        private void GameExit()
         {
-            // PopupState popupState = WV_UIMamager.Instance.Popup<CommonPopup>().Open(CommonPopupType.D, "candy_game_exit", ePopupType.i_quit);
-            // popupState.OnYes = p => OkExitCallback();
+            PopupState popupState = Les_UIManager.Instance.Popup<BasePopup_TwoBtn>().Open("게임을 나가시겠습니까?");
+            popupState.OnYes = p => OkExitCallback();
         }
 
         private void OkExitCallback()
         {
-            if (candyGameType == CandyGameType.Start)
+            if (dongleGameType == DongleGameType.Start)
             {
-                // WV_UIMamager.Instance.SceneLoad(new LoadingDataParam()
-                // {
-                //     loadScene = Constants.Scene.Square,
-                //     viewName = "SquareView",
-                //     param = null
-                // });
+                LoadingManager.Instance.SceneLoad(Constants.Scene.Title);
             }
             else
-                CandyGameInit();
+                GameInit();
         }
         #endregion
 
         #region Start
-        /// <summary> 유저 코인 불러오기 </summary>
-        private void GetUserCoin()
+        /// <summary> 게임 시작 </summary>
+        private void GameStart()
         {
-            // 유저 코인 가져오기
-            // userCoin.text = GameContentManager.Instance.GetUserInfo().wittiPang.ToString("n0");
-        }
-
-        /// <summary> 캔디 게임 시작 </summary>
-        private void CandyGameStart()
-        {
-            // UseWittiPangReqParam reqParam = new UseWittiPangReqParam()
-            // {
-            //     contsId = GameContentManager.Instance.MinigameMainResutRes.gameObj.contsId,
-            //     rwrdTp = UseWittiPangType.GAME.ToString(),
-            //     rwrdPnt = GameContentManager.Instance.MinigameMainResutRes.gameObj.rwrdPnt
-            // };
-
-            // NetworkClient.Instance.PostUseWittiPang(reqParam, okcall: () =>
-            // {
-            //     GetUserCoin();
-            //     CandyGameStateChange(CandyGameType.Game);
-            //     CountStart();
-            //     feroControl.FeroControlStart();
-            // },
-            // nocall: () =>
-            // {
-            //     WV_UIMamager.Instance.Popup<CommonPopup>().Open(CommonPopupType.C, "playzone_wittipang", ePopupType.i_warning);
-            // });
-        }
-
-        /// <summary> 캔디게임 랭킹 팝업 오픈 </summary>
-        private void OpenRankingPopup()
-        {
-            // WV_UIMamager.Instance.Popup<RankPopup>().Open(PlayZoneGameType.CandyCandy);
+            DongleGameStateChange(DongleGameType.Game);
+            CountStart();
+            launcherControl.LauncherControlStart();
         }
         #endregion
 
@@ -175,30 +137,7 @@ namespace UISystem
         {
             NowScoreInit();
             GetMaxScore();
-            GetRankingDate();
-            feroControl.Init();
-        }
-
-        /// <summary> 랭킹 데이터 불러오기 </summary>
-        private void GetRankingDate()
-        {
-            // MinigameReqParam req = new MinigameReqParam()
-            // {
-            //     contsId = GameContentManager.Instance.MinigameMainResutRes.gameObj.contsId,
-            // };
-            // NetworkClient.Instance.GetMiniGame_Ranking(req, (resData) =>
-            // {
-            //     rankingScores = new int[resData.Count];
-            //     for (int i = 0; i < resData.Count; i++)
-            //     {
-            //         rankingScores[i] = resData[i].rankedScore;
-
-            //         if (i < rankingScoreTexts.Length)
-            //         {
-            //             rankingScoreTexts[i].text = resData[i].rankedScore.ToString("n0");
-            //         }
-            //     }
-            // });
+            launcherControl.Init();
         }
 
         /// <summary> 현재 점수 초기화 </summary>
@@ -234,16 +173,16 @@ namespace UISystem
         }
 
         /// <summary> 다음 캔디 표시 </summary>
-        public void ShowNextCandy(int idx)
+        public void ShowNextDongle(int idx)
         {
-            nextCandyImage.sprite = candySprites[idx];
+            nextDongleImage.sprite = dongleSprites[idx];
         }
         #endregion
 
         #region End
         public void GameEnd()
         {
-            feroControl.isEnd = true;
+            launcherControl.isEnd = true;
             int rank = GetMyRanking();
 
             // PopupState popupState = WV_UIMamager.Instance.Popup<GameResultPopup>().Open(nowScore);
@@ -266,7 +205,7 @@ namespace UISystem
 
         private void EndPopupCloseAction()
         {
-            CandyGameInit();
+            GameInit();
         }
         #endregion
     }

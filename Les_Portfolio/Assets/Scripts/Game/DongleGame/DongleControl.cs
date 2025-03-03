@@ -2,13 +2,13 @@ using System.Collections;
 using UISystem;
 using UnityEngine;
 
-public class CandyControl : MonoBehaviour
+public class DongleControl : MonoBehaviour
 {
-    private FeroControl feroControl;
-    private CandyView candyView;
+    private DongleView dongleView;
+    private LauncherControl launcherControl;
 
-    [SerializeField] BallType ballType;
-    public BallType _ballType { get { return ballType; } }
+    [SerializeField] DongleType dongleType;
+    public DongleType _dongleType { get { return dongleType; } }
     private Animator animator;
     [SerializeField] int[] candyScores;
 
@@ -20,8 +20,8 @@ public class CandyControl : MonoBehaviour
 
     private void Awake()
     {
-        candyView = FindObjectOfType<CandyView>();
-        feroControl = FindObjectOfType<FeroControl>();
+        dongleView = FindObjectOfType<DongleView>();
+        launcherControl = FindObjectOfType<LauncherControl>();
         animator = this.GetComponent<Animator>();
     }
     private void Start()
@@ -34,26 +34,26 @@ public class CandyControl : MonoBehaviour
         isMerge = false;
     }
 
-    public void SetCandy(BallType type)
+    public void SetDongle(DongleType type)
     {
         Init();
-        ballType = type;
+        dongleType = type;
         animator.SetFloat("Level", (int)type);
     }
-    public void CandyLevelUp()
+    public void DongleLevelUp()
     {
         isMerge = true;
-        StartCoroutine(CandyLevelUpCoroutine());
+        StartCoroutine(DongleLevelUpCoroutine());
     }
-    private IEnumerator CandyLevelUpCoroutine()
+    private IEnumerator DongleLevelUpCoroutine()
     {
         int frame = 0;
-        int level = (int)ballType;
-        candyView.NowScoreUpdate(candyScores[level]);
+        int level = (int)dongleType;
+        dongleView.NowScoreUpdate(candyScores[level]);
 
-        if (ballType == BallType.Ten)
+        if (dongleType == DongleType.Ten)
         {
-            candyView.GameEnd();
+            dongleView.GameEnd();
             yield break;
         }
         else
@@ -64,16 +64,16 @@ public class CandyControl : MonoBehaviour
                 yield return null;
                 frame++;
             }
-            ballType++;
+            dongleType++;
             level += 1;
 
             animator.SetFloat("Level", level);
             Init();
         }
     }
-    public void CandyDelete()
+    public void DongleDelete()
     {
-        feroControl.InCandyPool(this);
+        launcherControl.InDonglePool(this);
     }
 
     private void OnCollisionStay2D(Collision2D other)
@@ -81,9 +81,9 @@ public class CandyControl : MonoBehaviour
         // 공이 부딧혔는지
         if (other.collider.CompareTag("Candy"))
         {
-            CandyControl ccOther = other.collider.GetComponent<CandyControl>();
+            DongleControl ccOther = other.collider.GetComponent<DongleControl>();
             // 같은 타입의 공이면서 둘다 합체를 안하고 있을 때
-            if (ccOther._ballType == ballType && ccOther.IsMerge == false && isMerge == false)
+            if (ccOther._dongleType == dongleType && ccOther.IsMerge == false && isMerge == false)
             {
                 if (ccOther.transform.GetSiblingIndex() < this.transform.GetSiblingIndex())
                 {
@@ -92,10 +92,10 @@ public class CandyControl : MonoBehaviour
 
                     Vector2 one = ccOther.GetComponent<RectTransform>().anchoredPosition;
                     Vector2 two = this.GetComponent<RectTransform>().anchoredPosition;
-                    feroControl.ShowEffect(Vector2.Lerp(one, two, 0.5f));
+                    launcherControl.ShowEffect(Vector2.Lerp(one, two, 0.5f));
 
-                    ccOther.CandyLevelUp();
-                    CandyDelete();
+                    ccOther.DongleLevelUp();
+                    DongleDelete();
                 }
             }
         }
@@ -105,7 +105,7 @@ public class CandyControl : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
-            candyView.GameEnd();
+            dongleView.GameEnd();
         }
     }
 

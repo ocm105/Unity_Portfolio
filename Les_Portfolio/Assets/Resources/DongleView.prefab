@@ -906,7 +906,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3535817419709871280}
   m_Layer: 5
-  m_Name: Candy Push Pos
+  m_Name: Dongle Push Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1776,7 +1776,7 @@ GameObject:
   - component: {fileID: 5820879082578460204}
   - component: {fileID: 1893229962362078121}
   m_Layer: 5
-  m_Name: Next Candy
+  m_Name: Next Dongle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2619,7 +2619,7 @@ GameObject:
   - component: {fileID: 6606371123943043216}
   - component: {fileID: 6374378283063718685}
   m_Layer: 5
-  m_Name: Candy Box Front
+  m_Name: Dongle Box Front
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2828,8 +2828,9 @@ GameObject:
   m_Component:
   - component: {fileID: 930935034835401970}
   - component: {fileID: 3202050044590355194}
+  - component: {fileID: 2624987320479982635}
   m_Layer: 5
-  m_Name: CandyView
+  m_Name: DongleView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2871,6 +2872,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a689a06a307df54a957b3b99ab1cec6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2624987320479982635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4996378469834892056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 617bc38745b9eb0408174108bc10dda7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DestroyOnHide: 0
+  TargetFrameRate: -1
+  Background: 
+  Header: 
+  Footer: 
+  BgmKey: BGM_MAIN
+  launcherControl: {fileID: 6231589841811092973}
+  canvasGroups:
+  - {fileID: 1534866718864683914}
+  - {fileID: 1577981077325833715}
+  startButton: {fileID: 2753133157996610074}
+  dongleSprites:
+  - {fileID: 21300000, guid: e8ca73acc2996b7478615bcc49237fe9, type: 3}
+  - {fileID: 21300000, guid: 6e1fea459c9621247b97f67f2dff88b1, type: 3}
+  - {fileID: 21300000, guid: 8e8694079e292fd42b509f1f98c34abc, type: 3}
+  - {fileID: 21300000, guid: 6828ab77b19cb1e47be89b2273cde042, type: 3}
+  - {fileID: 21300000, guid: 29392165bc26232409a7442da567a2b1, type: 3}
+  - {fileID: 21300000, guid: 873bc4dc102238644b2692b553543f9c, type: 3}
+  - {fileID: 21300000, guid: f59122ee75f4b4a4bbb7f56e7ef6c44f, type: 3}
+  - {fileID: 21300000, guid: d55126dcc12ab014dbb649ae44659c9f, type: 3}
+  nextDongleImage: {fileID: 2123766965514277808}
+  maxScoreText: {fileID: 7822638282928142279}
+  nowScoreText: {fileID: 5028890822305995815}
+  countObj: {fileID: 547311917037016040}
+  countImg: {fileID: 7152896649316460618}
+  countSprites:
+  - {fileID: 21300000, guid: 7ddd7cdb96c476946a4e4a45547c29a7, type: 3}
+  - {fileID: 21300000, guid: 878232f0211ed9a4da4101212b984c8a, type: 3}
+  - {fileID: 21300000, guid: f55fe7e0e159d0142bb7ead438da727d, type: 3}
+  - {fileID: 21300000, guid: d8808593d827af544a45439eba0ede04, type: 3}
+  ExitButton: {fileID: 5287502060861369799}
 --- !u!1 &5016692598584474628
 GameObject:
   m_ObjectHideFlags: 0
@@ -3107,7 +3151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1259246832601070813}
   m_Layer: 5
-  m_Name: Fero
+  m_Name: Launcher
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3131,9 +3175,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 215}
+  m_AnchoredPosition: {x: 0, y: 124}
   m_SizeDelta: {x: 166, y: 182}
-  m_Pivot: {x: 0.5, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5494641074379927957
 GameObject:
   m_ObjectHideFlags: 0
@@ -3188,7 +3232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1053163284745488407}
   m_Layer: 5
-  m_Name: Candy Create Pos
+  m_Name: Dongle Create Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3832,7 +3876,7 @@ GameObject:
   - component: {fileID: 1205032599335627014}
   - component: {fileID: 3760768711694753281}
   m_Layer: 5
-  m_Name: Candy Game
+  m_Name: Dongle Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3875,17 +3919,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52854224e9fa8b148b68d962975c81cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  candyView: {fileID: 0}
+  dongleView: {fileID: 2624987320479982635}
   feroRect: {fileID: 1259246832601070813}
-  candyCreatePos: {fileID: 1053163284745488407}
-  candyPushPos: {fileID: 3535817419709871280}
-  candyPrefab: {fileID: 9060776546799873646, guid: cb1fe08840e9f5e4399312c46df81eb6, type: 3}
-  candyPercents: 0000000000000000000000001e0000001e0000001e0000000500000005000000000000000000000000000000
+  dongleCreatePos: {fileID: 1053163284745488407}
+  donglePushPos: {fileID: 3535817419709871280}
+  donglePrefab: {fileID: 8301870927141944149, guid: 7ff45f94f2dc1764dbab390f4063543a, type: 3}
+  donglePercents: 14000000140000000a0000000500000005000000000000000000000000000000
   lineObject: {fileID: 7287472616959658988}
   poolCount: 50
   originPos: {x: 0, y: 215}
   sfxPoolCount: 20
-  mergeEffect: {fileID: 1879035896536200, guid: 45c9bf145e2c7784583d2b528bf8b9fa, type: 3}
+  mergeEffect: {fileID: 0}
   effectParent: {fileID: 8966598294840569581}
   endTrigger: {fileID: 2389164542476034548}
 --- !u!222 &1205032599335627014

@@ -192,5 +192,10 @@ public class TitleView : UIView
     {
         Application.OpenURL("https://github.com/ocm105/Unity_Portfolio.git");
     }
+    // 동글이 게임
+    private void OnClick_DongleGame()
+    {
+        LoadingManager.Instance.SceneLoad(Constants.Scene.DongleGame);
+    }
     #endregion
 }

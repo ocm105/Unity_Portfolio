@@ -50,7 +50,7 @@ public enum PlayerAniState
 #endregion
 
 #region Game
-public enum BallType
+public enum DongleType
 {
     One,
     Two,

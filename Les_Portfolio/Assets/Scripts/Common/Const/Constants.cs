@@ -11,5 +11,6 @@ public static class Constants
         public const string CameraView = "5.CameraScene";
         public const string PlayerMove = "6.PlayerMoveScene";
         public const string WebView = "7.WebviewScene";
+        public const string DongleGame = "8.DongleGameScene";
     }
 }
