@@ -59,9 +59,7 @@ public enum DongleType
     Five,
     Six,
     Seven,
-    Eight,
-    Nine,
-    Ten
+    Eight
 }
 
 #endregion

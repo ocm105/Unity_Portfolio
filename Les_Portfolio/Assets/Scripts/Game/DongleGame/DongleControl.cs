@@ -51,7 +51,7 @@ public class DongleControl : MonoBehaviour
         int level = (int)dongleType;
         dongleView.NowScoreUpdate(candyScores[level]);
 
-        if (dongleType == DongleType.Ten)
+        if (dongleType == DongleType.Eight)
         {
             dongleView.GameEnd();
             yield break;
