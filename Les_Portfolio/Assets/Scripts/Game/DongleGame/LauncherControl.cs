@@ -10,7 +10,7 @@ public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler,
     private const float MAX_RIGHT = 295f;
     private const float FIX_VALUE = 7.5f;
     [SerializeField] DongleView dongleView;
-    [SerializeField] RectTransform feroRect;
+    [SerializeField] RectTransform launcherRect;
 
     [SerializeField] Transform dongleCreatePos;          // 동글 생성 위치
     [SerializeField] Transform donglePushPos;            // 동글 넣는 위치
@@ -46,7 +46,7 @@ public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler,
     public void Init()
     {
         fixWidth = Screen.width / 2;
-        feroRect.anchoredPosition = originPos;
+        launcherRect.anchoredPosition = originPos;
         isPointDown = false;
         isPush = false;
         nextDongleIndex = -1;
@@ -94,18 +94,18 @@ public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler,
     }
     private void Move(Vector2 pos)
     {
-        feroRect.anchoredPosition = new Vector2(pos.x - fixWidth, feroRect.anchoredPosition.y);
+        launcherRect.anchoredPosition = new Vector2(pos.x - fixWidth, launcherRect.anchoredPosition.y);
 
-        clampPos.x = Mathf.Clamp(feroRect.anchoredPosition.x, fixLeft, fixRight);
-        clampPos.y = feroRect.anchoredPosition.y;
-        feroRect.anchoredPosition = clampPos;
+        clampPos.x = Mathf.Clamp(launcherRect.anchoredPosition.x, fixLeft, fixRight);
+        clampPos.y = launcherRect.anchoredPosition.y;
+        launcherRect.anchoredPosition = clampPos;
     }
 #if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetButton("Jump"))
         {
-            if (isEnd == true) return;
+            // if (isEnd == true) return;
             if (isPush == false)
                 StartCoroutine(PushDongle());
         }

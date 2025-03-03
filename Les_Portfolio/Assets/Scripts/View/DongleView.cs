@@ -23,7 +23,6 @@ namespace UISystem
         [SerializeField] Image nextDongleImage;
         [SerializeField] TextMeshProUGUI maxScoreText;      // 최고 점수
         [SerializeField] TextMeshProUGUI nowScoreText;      // 현재 점수
-        private int[] rankingScores;
         private int nowScore = 0;
         private int maxScore = 0;
 
@@ -36,7 +35,7 @@ namespace UISystem
         private DongleGameType dongleGameType = DongleGameType.Start;
 
 
-        public void Show(object param)
+        public void Show()
         {
             ShowLayer();
             SetInfo();
@@ -169,7 +168,6 @@ namespace UISystem
             //                maxScoreText.text = maxScore.ToString();
             //            }
             //        });
-
         }
 
         /// <summary> 다음 캔디 표시 </summary>
@@ -183,24 +181,9 @@ namespace UISystem
         public void GameEnd()
         {
             launcherControl.isEnd = true;
-            int rank = GetMyRanking();
 
             // PopupState popupState = WV_UIMamager.Instance.Popup<GameResultPopup>().Open(nowScore);
             // popupState.OnClose = p => EndPopupCloseAction();
-        }
-
-        private int GetMyRanking()
-        {
-            int temp = 11;
-            for (int i = rankingScores.Length; i > 0; i--)
-            {
-                if (rankingScores[i - 1] < nowScore)
-                    temp--;
-                else
-                    break;
-            }
-
-            return temp;
         }
 
         private void EndPopupCloseAction()

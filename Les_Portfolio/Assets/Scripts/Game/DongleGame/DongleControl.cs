@@ -79,7 +79,7 @@ public class DongleControl : MonoBehaviour
     private void OnCollisionStay2D(Collision2D other)
     {
         // 공이 부딧혔는지
-        if (other.collider.CompareTag("Candy"))
+        if (other.collider.CompareTag("Dongle"))
         {
             DongleControl ccOther = other.collider.GetComponent<DongleControl>();
             // 같은 타입의 공이면서 둘다 합체를 안하고 있을 때
