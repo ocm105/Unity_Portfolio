@@ -150,24 +150,21 @@ namespace UISystem
         public void NowScoreUpdate(int add)
         {
             nowScore += add;
-            nowScoreText.text = nowScore.ToString();
+            nowScoreText.text = nowScore.ToString("n0");
         }
 
         /// <summary> 최고점수 불러오기 </summary>
         private void GetMaxScore()
         {
-            // MinigameReqParam reqParam = new MinigameReqParam() { contsId = GameContentManager.Instance.MinigameMainResutRes.gameObj.contsId };
-            // NetworkClient.Instance.GetMiniGame_Score(reqParam, (resData) =>
-            //        {
-            //            int temp = resData.topScore;
-            //            if (temp == 0)
-            //                maxScoreText.text = "-";
-            //            else
-            //            {
-            //                maxScore = temp;   // 저장된 어딘가로 부터 받기
-            //                maxScoreText.text = maxScore.ToString();
-            //            }
-            //        });
+            int temp = GameDataManager.Instance.gameMaxScoreInfo.dongleMaxScore;
+
+            if (temp == 0)
+                maxScoreText.text = "-";
+            else
+            {
+                maxScore = temp;   // 저장된 어딘가로 부터 받기
+                maxScoreText.text = maxScore.ToString("n0");
+            }
         }
 
         /// <summary> 다음 캔디 표시 </summary>
@@ -181,9 +178,13 @@ namespace UISystem
         public void GameEnd()
         {
             launcherControl.isEnd = true;
-
-            // PopupState popupState = WV_UIMamager.Instance.Popup<GameResultPopup>().Open(nowScore);
-            // popupState.OnClose = p => EndPopupCloseAction();
+            if (nowScore > maxScore)
+            {
+                GameDataManager.Instance.gameMaxScoreInfo.dongleMaxScore = nowScore;
+                GameDataManager.Instance.GameMaxScoreUpdate();
+            }
+            PopupState popupState = Les_UIManager.Instance.Popup<GameResultPopup>().Open(nowScore, maxScore);
+            popupState.OnClose = p => EndPopupCloseAction();
         }
 
         private void EndPopupCloseAction()

@@ -6,9 +6,9 @@ using UnityEngine.EventSystems;
 
 public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
 {
-    private const float MAX_LEFT = -295f;
-    private const float MAX_RIGHT = 295f;
-    private const float FIX_VALUE = 7.5f;
+    private const float MAX_LEFT = -315f;
+    private const float MAX_RIGHT = 315f;
+    private const float FIX_VALUE = 19f;
     [SerializeField] DongleView dongleView;
     [SerializeField] RectTransform launcherRect;
 
@@ -197,6 +197,7 @@ public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler,
         target.transform.SetParent(dongleCreatePos);
         target.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         target.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+        target.GetComponent<RectTransform>().rotation = Quaternion.Euler(Vector3.zero);
         target.GetComponent<CircleCollider2D>().enabled = false;
         dongleQueue.Enqueue(target);
         target.gameObject.SetActive(false);

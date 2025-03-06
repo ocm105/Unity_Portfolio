@@ -51,7 +51,7 @@ public class DongleControl : MonoBehaviour
         int level = (int)dongleType;
         dongleView.NowScoreUpdate(candyScores[level]);
 
-        if (dongleType == DongleType.Eight)
+        if (dongleType == DongleType.Seven)
         {
             dongleView.GameEnd();
             yield break;
@@ -75,7 +75,30 @@ public class DongleControl : MonoBehaviour
     {
         launcherControl.InDonglePool(this);
     }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        // 공이 부딧혔는지
+        if (other.collider.CompareTag("Dongle"))
+        {
+            DongleControl ccOther = other.collider.GetComponent<DongleControl>();
+            // 같은 타입의 공이면서 둘다 합체를 안하고 있을 때
+            if (ccOther._dongleType == dongleType && ccOther.IsMerge == false && isMerge == false)
+            {
+                if (ccOther.transform.GetSiblingIndex() < this.transform.GetSiblingIndex())
+                {
+                    isMerge = true;
+                    // SoundManager.Instance.PlaySFXSound("merge2");
 
+                    Vector2 one = ccOther.GetComponent<RectTransform>().anchoredPosition;
+                    Vector2 two = this.GetComponent<RectTransform>().anchoredPosition;
+                    launcherControl.ShowEffect(Vector2.Lerp(one, two, 0.5f));
+
+                    ccOther.DongleLevelUp();
+                    DongleDelete();
+                }
+            }
+        }
+    }
     private void OnCollisionStay2D(Collision2D other)
     {
         // 공이 부딧혔는지

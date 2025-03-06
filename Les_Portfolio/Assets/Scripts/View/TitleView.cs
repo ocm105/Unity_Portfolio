@@ -19,6 +19,7 @@ public class TitleView : UIView
     [SerializeField] Button playerMoveButton;
     [SerializeField] Button webviewButton;
     [SerializeField] Button gitButton;
+    [SerializeField] Button dongleGameButton;
 
     private MainState mainState;
 
@@ -35,6 +36,7 @@ public class TitleView : UIView
         playerMoveButton.onClick.AddListener(OnClick_PlayerMove);
         webviewButton.onClick.AddListener(OnClick_Webview);
         gitButton.onClick.AddListener(OnClick_Git);
+        dongleGameButton.onClick.AddListener(OnClick_DongleGame);
     }
     protected override void OnShow()
     {

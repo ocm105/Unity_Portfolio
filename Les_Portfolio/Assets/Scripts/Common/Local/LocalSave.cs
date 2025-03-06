@@ -6,6 +6,7 @@ using System.IO;
 public static class LocalSave
 {
     private const string PREFS_DATA_SETTING = "PREFS_DATA_SETTING";
+    private const string PREFS_GAME_MAXSCORE = "PREFS_GAME_MAXSCORE";
 
     #region Base
     private static T GetLocalData<T>(string key)
@@ -99,4 +100,30 @@ public static class LocalSave
         SetLocalData(key, info);
     }
     #endregion
+
+    public static GameMaxScoreInfo GetGameMaxScoreInfo()
+    {
+        GameMaxScoreInfo info;
+
+        string key = PREFS_GAME_MAXSCORE;
+
+        if (!HasKey(key))
+        {
+            info = new GameMaxScoreInfo();
+            SetGameMaxScoreInfo(info);
+        }
+        else
+        {
+            info = GetLocalData<GameMaxScoreInfo>(key);
+        }
+
+        return info;
+    }
+    public static void SetGameMaxScoreInfo(GameMaxScoreInfo info)
+    {
+        string key = PREFS_GAME_MAXSCORE;
+
+        SetLocalData(key, info);
+    }
+
 }

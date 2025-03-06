@@ -3175,7 +3175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 125}
+  m_AnchoredPosition: {x: 0, y: 150}
   m_SizeDelta: {x: 166, y: 182}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5494641074379927957
@@ -3924,10 +3924,10 @@ MonoBehaviour:
   dongleCreatePos: {fileID: 1053163284745488407}
   donglePushPos: {fileID: 3535817419709871280}
   donglePrefab: {fileID: 8301870927141944149, guid: 7ff45f94f2dc1764dbab390f4063543a, type: 3}
-  donglePercents: 14000000140000000a0000000500000005000000000000000000000000000000
+  donglePercents: 14000000140000000a0000000000000000000000000000000000000000000000
   lineObject: {fileID: 7287472616959658988}
   poolCount: 50
-  originPos: {x: 0, y: 125}
+  originPos: {x: 0, y: 150}
   sfxPoolCount: 20
   mergeEffect: {fileID: 8020808120545640707, guid: b4e479e134847f34888b5d1dd6766f54, type: 3}
   effectParent: {fileID: 8966598294840569581}

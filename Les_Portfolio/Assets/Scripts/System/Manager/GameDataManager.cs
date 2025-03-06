@@ -9,6 +9,8 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     public Dictionary<int, PlayerData> player_Data = new Dictionary<int, PlayerData>();
     public bool isDataLoad_Completed { get; private set; }
 
+    public GameMaxScoreInfo gameMaxScoreInfo;
+
     protected override void OnAwakeSingleton()
     {
         base.OnAwakeSingleton();
@@ -23,6 +25,12 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
             yield return StartCoroutine(NetworkManager.Instance.GetPlayerDataRequest((resData) => player_Data = resData));
         }
 
+        gameMaxScoreInfo = LocalSave.GetGameMaxScoreInfo();
         isDataLoad_Completed = true;
+    }
+
+    public void GameMaxScoreUpdate()
+    {
+        LocalSave.SetGameMaxScoreInfo(gameMaxScoreInfo);
     }
 }

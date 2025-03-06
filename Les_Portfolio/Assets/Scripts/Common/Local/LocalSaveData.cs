@@ -21,3 +21,14 @@ public class LocalSettingInfo
         languageType = LanguageType.Korean;
     }
 }
+
+[Serializable]
+public class GameMaxScoreInfo
+{
+    public int dongleMaxScore;
+
+    public GameMaxScoreInfo()
+    {
+        dongleMaxScore = 0;
+    }
+}
