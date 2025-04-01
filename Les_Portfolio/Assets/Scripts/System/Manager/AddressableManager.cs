@@ -18,6 +18,9 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
     private AsyncOperationHandle<IList<GameObject>> viewHandle;
     public List<GameObject> viewList = new List<GameObject>();
 
+    private AsyncOperationHandle<IList<AudioClip>> soundHandle;
+    public List<AudioClip> soundList = new List<AudioClip>();
+
     private AsyncOperationHandle<long> sizeHandle;
     public long downSize { get; private set; }
     public float downPercent { get; private set; }
@@ -98,6 +101,7 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
         yield return StartCoroutine(GetAddressableFBX());
         yield return StartCoroutine(GetAddressablePopup());
         yield return StartCoroutine(GetAddressableView());
+        yield return StartCoroutine(GetAddressableSound());
     }
 
     public IEnumerator GetAddressableFBX()
@@ -124,6 +128,14 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
         });
         yield return new WaitUntil(() => viewHandle.IsDone);
     }
+    public IEnumerator GetAddressableSound()
+    {
+        soundHandle = Addressables.LoadAssetsAsync<AudioClip>("Sound", item =>
+        {
+            soundList.Add(item);
+        });
+        yield return new WaitUntil(() => soundHandle.IsDone);
+    }
 
     public GameObject GetFBX(string key)
     {
@@ -139,6 +151,11 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
     {
         GameObject view = viewList.Where(x => x.name == key).FirstOrDefault();
         return view;
+    }
+    public AudioClip GetSound(string key)
+    {
+        AudioClip sound = soundList.Where(x => x.name == key).FirstOrDefault();
+        return sound;
     }
 
     public TextAsset GetTable(string key)

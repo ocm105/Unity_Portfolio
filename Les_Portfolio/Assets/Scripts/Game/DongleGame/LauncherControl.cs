@@ -225,7 +225,7 @@ public class LauncherControl : MonoBehaviour, IDragHandler, IPointerDownHandler,
 
     private IEnumerator PushDongle()
     {
-        // SoundManager.Instance.PlaySFXSound("drop");
+        SoundManager.Instance.PlaySFXSound("DongleFall");
         isPush = true;
         endTrigger.SetActive(false);
         lineObject.SetActive(false);

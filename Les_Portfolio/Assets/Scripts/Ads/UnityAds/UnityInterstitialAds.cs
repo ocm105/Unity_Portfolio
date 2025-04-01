@@ -15,6 +15,7 @@ public class UnityInterstitialAds : MonoBehaviour, IUnityAdsLoadListener, IUnity
     // Unity 광고 로드 (전면)
     public void LoadUnityInterstitialAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         interstitialAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateUnityInterstitialAds();

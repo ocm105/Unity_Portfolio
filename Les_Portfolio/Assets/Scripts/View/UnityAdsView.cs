@@ -23,7 +23,10 @@ public partial class UnityAdsView : UIView, IUnityAdsInitializationListener
         exitBtn.onClick.AddListener(OnClick_ExitBtn);
         Init();
     }
-    protected override void OnShow() { }
+    protected override void OnShow()
+    {
+        SoundManager.Instance.PlayMainBGMSound();
+    }
 
     private void Init()
     {
@@ -61,6 +64,7 @@ public partial class UnityAdsView : UIView, IUnityAdsInitializationListener
 
     private void OnClick_ExitBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.Title);
     }
 }

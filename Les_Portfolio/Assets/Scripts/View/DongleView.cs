@@ -46,23 +46,16 @@ namespace UISystem
             startButton.onClick.AddListener(GameStart);
             ExitButton.onClick.AddListener(GameExit);
         }
+        protected override void OnShow()
+        {
+            SoundManager.Instance.PlayBGMSound("BGM_Dongle");
+        }
 
         private void SetInfo()
         {
             GameInit();
-            // try
-            // {
-            //     SoundManager.Instance.PlayBGMSound(BgmKey);
-            // }
-            // catch (System.Exception)
-            // {
-            //     SoundManager.Instance.SoundLoad(() =>
-            //     {
-            //         SoundManager.Instance.PlayBGMSound(BgmKey);
-            //     });
-            // }
+
             launcherControl.CreateDongle();
-            // DongleGameStateChange(DongleGameType.Start);
         }
 
         private void GameInit()
@@ -92,12 +85,12 @@ namespace UISystem
         private IEnumerator CountCoroutine()
         {
             countObj.SetActive(true);
-            // SoundManager.Instance.PlaySFXSound("countDown");
+            // SoundManager.Instance.PlaySFXSound("Countdown");
             for (int i = countSprites.Length; i > 0; i--)
             {
                 countImg.sprite = countSprites[i - 1];
                 countImg.SetNativeSize();
-                yield return new WaitForSeconds(1.15f);
+                yield return new WaitForSeconds(1f);
             }
             countObj.SetActive(false);
         }
@@ -105,6 +98,7 @@ namespace UISystem
         /// <summary> 게임나가기 </summary>
         private void GameExit()
         {
+            SoundManager.Instance.PlaySFXSound("Button");
             PopupState popupState = Les_UIManager.Instance.Popup<BasePopup_TwoBtn>().Open("게임을 나가시겠습니까?");
             popupState.OnYes = p => OkExitCallback();
         }
@@ -124,6 +118,7 @@ namespace UISystem
         /// <summary> 게임 시작 </summary>
         private void GameStart()
         {
+            SoundManager.Instance.PlaySFXSound("Button");
             DongleGameStateChange(DongleGameType.Game);
             CountStart();
             launcherControl.LauncherControlStart();

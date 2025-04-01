@@ -56,6 +56,7 @@ public class LocalizationView : UIView
     // 언어 변경
     private void ChangeLanguage(LanguageType type)
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         SetActiveButton(type);
         LoadingManager.Instance.SetFadeOut(() =>
         {
@@ -67,11 +68,13 @@ public class LocalizationView : UIView
     #region Event
     private void OnClick_ChatBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         if (playerInfo.npcControl != null)
             Les_UIManager.Instance.Popup<DescriptPopup>().Open(playerInfo.npcControl.npcDialogIndex);
     }
     private void OnClick_HomeBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.Title);
     }
     #endregion

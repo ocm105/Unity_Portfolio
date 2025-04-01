@@ -9,6 +9,7 @@ public partial class GoogleAdsView : UIView
     // 구글 광고 로드 (배너)
     public void LoadBannerAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         bannerAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateBannerAds();

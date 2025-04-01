@@ -53,6 +53,7 @@ public class DongleControl : MonoBehaviour
 
         if (dongleType == DongleType.Seven)
         {
+            SoundManager.Instance.PlaySFXSound("Victory");
             dongleView.GameEnd();
             yield break;
         }
@@ -87,7 +88,7 @@ public class DongleControl : MonoBehaviour
                 if (ccOther.transform.GetSiblingIndex() < this.transform.GetSiblingIndex())
                 {
                     isMerge = true;
-                    // SoundManager.Instance.PlaySFXSound("merge2");
+                    SoundManager.Instance.PlaySFXSound("DongleMerge");
 
                     Vector2 one = ccOther.GetComponent<RectTransform>().anchoredPosition;
                     Vector2 two = this.GetComponent<RectTransform>().anchoredPosition;
@@ -111,7 +112,7 @@ public class DongleControl : MonoBehaviour
                 if (ccOther.transform.GetSiblingIndex() < this.transform.GetSiblingIndex())
                 {
                     isMerge = true;
-                    // SoundManager.Instance.PlaySFXSound("merge2");
+                    SoundManager.Instance.PlaySFXSound("DongleMerge");
 
                     Vector2 one = ccOther.GetComponent<RectTransform>().anchoredPosition;
                     Vector2 two = this.GetComponent<RectTransform>().anchoredPosition;
@@ -128,6 +129,7 @@ public class DongleControl : MonoBehaviour
     {
         if (other.CompareTag("Finish"))
         {
+            SoundManager.Instance.PlaySFXSound("Fail");
             dongleView.GameEnd();
         }
     }

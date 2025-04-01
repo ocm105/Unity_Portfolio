@@ -55,6 +55,7 @@ public class CameraView : UIView
     // 카메라 Cinemachine View 변경
     private void ChangeCinemachine(CameraViewType type)
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         SetActiveButton(type);
         cinemachineControl.OnChange_Cinemachine(type);
     }
@@ -62,6 +63,7 @@ public class CameraView : UIView
 
     private void OnClick_HomeBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.Title);
     }
 }

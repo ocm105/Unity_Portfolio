@@ -21,6 +21,7 @@ public class BasePopup_OneBtn : BasePopup_Toast
 
     private void OnClick_OkBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         CloseTween(() => OnResult(PopupResults.OK));
     }
 

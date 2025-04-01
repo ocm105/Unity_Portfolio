@@ -425,6 +425,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1534866718864683914, guid: d15f2c041c3be42479e7cefd8ba3ae70, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1577981077325833715, guid: d15f2c041c3be42479e7cefd8ba3ae70, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4996378469834892056, guid: d15f2c041c3be42479e7cefd8ba3ae70, type: 3}
       propertyPath: m_Name
       value: DongleView

@@ -12,6 +12,7 @@ public partial class GoogleAdsView : UIView
     // 구글 광고 로드 (앱 오픈)
     public void LoadAppOpenAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         appOpenAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateAppOpenAds();

@@ -9,6 +9,7 @@ public partial class GoogleAdsView : UIView
     // 구글 광고 로드 (네이티브 고급 광고)
     public void LoadNativeOverlayAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         nativeOverlayAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateNativeOverlayAds();

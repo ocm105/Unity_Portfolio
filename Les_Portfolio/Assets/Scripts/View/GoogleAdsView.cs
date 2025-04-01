@@ -32,6 +32,7 @@ public partial class GoogleAdsView : UIView
     }
     protected override void OnShow()
     {
+        SoundManager.Instance.PlayMainBGMSound();
         Init();
     }
 
@@ -42,6 +43,7 @@ public partial class GoogleAdsView : UIView
 
     private void OnClick_ExitBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         DestroyBannerAds();
         DestroyInterstitialAds();
         DestroyRewardInterstitialAds();

@@ -40,6 +40,7 @@ public class TitleView : UIView
     }
     protected override void OnShow()
     {
+        SoundManager.Instance.PlayMainBGMSound();
         Init();
         PlayGamesPlatform.Activate();
         GPGLogin();
@@ -162,41 +163,49 @@ public class TitleView : UIView
     // 구글 광고
     private void OnClick_GoogleAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.GoogleAds);
     }
     // 유니티 광고
     private void OnClick_UnityAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.UnityAds);
     }
     // 로컬라이징
     private void OnClick_Localization()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.Localization);
     }
     // 카메라 뷰 
     private void OnClick_CameraView()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.CameraView);
     }
     // 플레이어 조작
     private void OnClick_PlayerMove()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.PlayerMove);
     }
     // 웹뷰
     private void OnClick_Webview()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.WebView);
     }
     // 깃
     private void OnClick_Git()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         Application.OpenURL("https://github.com/ocm105/Unity_Portfolio.git");
     }
     // 동글이 게임
     private void OnClick_DongleGame()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.DongleGame);
     }
     #endregion

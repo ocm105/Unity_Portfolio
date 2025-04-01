@@ -22,7 +22,11 @@ public class PlayerMoveView : UIView
         playerInfo = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInfo>();
         cinemachineControl = GameObject.FindGameObjectWithTag("Cinemachine").GetComponent<CinemachineControl>();
 
-        jumpBtn.onClick.AddListener(playerInfo._playerMoveControl.Jump);
+        jumpBtn.onClick.AddListener(() =>
+        {
+            playerInfo._playerMoveControl.Jump();
+            SoundManager.Instance.PlaySFXSound("Button");
+        });
         homeBtn.onClick.AddListener(OnClick_HomeBtn);
 
         for (int i = 0; i < moveBtns.Length; i++)
@@ -73,6 +77,7 @@ public class PlayerMoveView : UIView
     // 조작 변경
     private void ChangeMove(PlayerMoveType type)
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         SetActiveButton(type);
 
         // 변경 함수
@@ -91,6 +96,7 @@ public class PlayerMoveView : UIView
     #region Event
     private void OnClick_HomeBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.Title);
     }
     #endregion

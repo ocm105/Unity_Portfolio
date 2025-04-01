@@ -25,22 +25,28 @@ public class WebviewView : UIView
         youtubeBtn.onClick.AddListener(OnClick_Youtube);
         exitBtn.onClick.AddListener(OnClick_ExitBtn);
     }
-    protected override void OnShow() { }
+    protected override void OnShow()
+    {
+        SoundManager.Instance.PlayMainBGMSound();
+    }
 
     private void OnClick_Naver()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         PopupState popup = Les_UIManager.Instance.Popup<WebviewPopup>().Open();
         popup.OnClose = p => WebviewManager.Instance.CloseWebView();
         WebviewManager.Instance.OpenWebView(naverUrl, 235, 235, 85, 185);
     }
     private void OnClick_Google()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         PopupState popup = Les_UIManager.Instance.Popup<WebviewPopup>().Open();
         popup.OnClose = p => WebviewManager.Instance.CloseWebView();
         WebviewManager.Instance.OpenWebView(googleUrl, 235, 235, 85, 185);
     }
     private void OnClick_Youtube()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         PopupState popup = Les_UIManager.Instance.Popup<WebviewPopup>().Open();
         popup.OnClose = p => WebviewManager.Instance.CloseWebView();
         WebviewManager.Instance.OpenWebView(youtubeUrl, 235, 235, 85, 185);
@@ -48,6 +54,7 @@ public class WebviewView : UIView
 
     private void OnClick_ExitBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         LoadingManager.Instance.SceneLoad(Constants.Scene.Title);
     }
 }

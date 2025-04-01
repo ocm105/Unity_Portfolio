@@ -10,6 +10,7 @@ public partial class GoogleAdsView : UIView
     // 구글 광고 로드 (보상형)
     public void LoadRewardAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         rewardAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateRewardAds();

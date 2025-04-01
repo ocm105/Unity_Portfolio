@@ -82,6 +82,7 @@ public class GameResultPopup : UIPopup
 
     private void OnClick_CloseBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         CloseTween(() => OnResult(PopupResults.Close));
     }
 

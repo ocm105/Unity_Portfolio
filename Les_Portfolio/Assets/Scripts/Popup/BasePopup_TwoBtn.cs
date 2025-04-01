@@ -25,10 +25,12 @@ public class BasePopup_TwoBtn : BasePopup_Toast
 
     private void OnClick_OkBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         CloseTween(() => OnResult(PopupResults.Yes));
     }
     private void OnClick_NoBtn()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         CloseTween(() => OnResult(PopupResults.No));
     }
 

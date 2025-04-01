@@ -15,6 +15,7 @@ public class UnityRewardAds : MonoBehaviour, IUnityAdsLoadListener, IUnityAdsSho
     // Unity 광고 로드 (보상형)
     public void LoadUnityRewardAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         rewardAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateUnityRewardAds();

@@ -19,6 +19,7 @@ public class UnityBannerAds : MonoBehaviour
     // Unity 광고 로드 (전면)
     public void LoadUnityBannerAds()
     {
+        SoundManager.Instance.PlaySFXSound("Button");
         bannerAdsBtn.interactable = false;
         LoadingManager.Instance.SetLoading(true);
         CreateUnityBannerAds();
