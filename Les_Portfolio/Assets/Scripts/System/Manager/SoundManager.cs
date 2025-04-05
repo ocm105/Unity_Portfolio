@@ -18,14 +18,13 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     [HideInInspector] public AudioSource mSFXAudio;
     [HideInInspector] public AudioSource mUIAudio;
 
-    public AudioListener AudioListener;
-    public bool mIsBGMSoundVolume = true;
-    public bool mIsSFXSoundVolume = true;
-    public bool mIsUISoundVolume = true;
+    private float mBGMVolume = 1.0f;
+    private float mSFXVolume = 1.0f;
+    private float mUIVolume = 1.0f;
 
-    public float mBGMVolume = 1.0f;
-    public float mSFXVolume = 1.0f;
-    public float mUIVolume = 1.0f;
+    private bool isBGM = true;
+    private bool isSFX = true;
+    private bool isUI = true;
 
     protected override void OnAwakeSingleton()
     {
@@ -34,13 +33,9 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         DontDestroyOnLoad(this);
     }
 
-    void Init()
+    private void Init()
     {
-        // LocalSettingInfo settingInfo = FileSave.GetSettingInfo();
-        // mBGMVolume = settingInfo.bgmVolum;
-        // mSFXVolume = settingInfo.sfxVolum;
-        // mUIVolume = settingInfo.sfxVolum;
-        // mTTSVolume = settingInfo.sfxVolum;
+        GetLocalSetting();
 
         if (mBGMSoundObj != null)
         {
@@ -71,6 +66,17 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
         mUISoundObj.transform.parent = this.transform;
     }
 
+    private void GetLocalSetting()
+    {
+        LocalSettingInfo settingInfo = LocalSave.GetSettingInfo();
+        mBGMVolume = settingInfo.bgmVolume;
+        mSFXVolume = settingInfo.sfxVolume;
+        mUIVolume = settingInfo.sfxVolume;
+
+        isBGM = settingInfo.isBgm;
+        isSFX = settingInfo.isSfx;
+    }
+
     private void SetAudioSource(AudioSource audio, string audio_name, bool isLoop = false)
     {
         audio.playOnAwake = false;
@@ -95,26 +101,24 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     }
     public void PlayBGMSound(string key)
     {
-        if (mIsBGMSoundVolume == false)
-            return;
         if (currentBgmKeyName == key)
             return;
 
         StopBGMSound();
         SetAudioSource(mBGMAudio, key, true);
+        mBGMAudio.mute = isBGM;
         mBGMAudio.volume = mBGMVolume;
         mBGMAudio.Play();
         currentBgmKeyName = key;
     }
     public void PlayBGMSound(AudioClip audioClip)
     {
-        if (mIsBGMSoundVolume == false)
-            return;
         if (currentBgmKeyName == audioClip.name)
             return;
 
         StopBGMSound();
         SetAudioSource(mBGMAudio, audioClip, true);
+        mBGMAudio.mute = isBGM;
         mBGMAudio.volume = mBGMVolume;
         mBGMAudio.Play();
         currentBgmKeyName = audioClip.name;
@@ -122,35 +126,35 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     public void PlaySFXSound(string key, bool isLoop = false)
     {
-        if (mIsSFXSoundVolume == false)
-            return;
-
         SetAudioSource(mSFXAudio, key, isLoop);
+        mSFXAudio.mute = isSFX;
         mSFXAudio.time = 0.0f;
         if (isLoop)
+        {
+            mSFXAudio.volume = mSFXVolume;
             mSFXAudio.Play();
+        }
         else
             mSFXAudio.PlayOneShot(mSFXAudio.clip, mSFXVolume);
     }
     public void PlaySFXSound(AudioClip audioClip, bool isLoop = false)
     {
-        if (mIsSFXSoundVolume == false)
-            return;
-
         SetAudioSource(mSFXAudio, audioClip);
+        mSFXAudio.mute = isSFX;
         mSFXAudio.time = 0.0f;
         if (isLoop)
+        {
+            mSFXAudio.volume = mSFXVolume;
             mSFXAudio.Play();
+        }
         else
             mSFXAudio.PlayOneShot(mSFXAudio.clip, mSFXVolume);
     }
 
     public void PlayUISound(string key)
     {
-        if (mIsUISoundVolume == false)
-            return;
-
         SetAudioSource(mUIAudio, key);
+        mUIAudio.mute = isSFX;
         mUIAudio.time = 0.0f;
         mUIAudio.PlayOneShot(mUIAudio.clip, mUIVolume);
     }
@@ -159,94 +163,55 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     #region Stop & Pause
     public void PauseBGMSound(bool isPause)
     {
-        AudioSource[] audios = mBGMSoundObj.GetComponents<AudioSource>();
+        if (mBGMAudio == null) return;
 
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            if (isPause)
-                audios[i].Pause();
-            else
-                audios[i].UnPause();
-        }
+        if (isPause)
+            mBGMAudio.Pause();
+        else
+            mBGMAudio.UnPause();
     }
 
     public void StopBGMSound()
     {
-        AudioSource[] audios = mBGMSoundObj.GetComponents<AudioSource>();
-
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            audios[i].Stop();
-        }
-        mBGMAudio?.Stop();
         currentBgmKeyName = "";
+        if (mBGMAudio == null) return;
+        mBGMAudio.Stop();
     }
 
     public void StopSFXSound()
     {
-        AudioSource[] audios = mSFXSoundObj.GetComponents<AudioSource>();
-
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            audios[i].Stop();
-        }
+        if (mSFXAudio == null) return;
+        mSFXAudio.Stop();
     }
 
     public void StopUISound()
     {
-        AudioSource[] audios = mUISoundObj.GetComponents<AudioSource>();
-
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            audios[i].Stop();
-        }
+        if (mUIAudio == null) return;
+        mUIAudio.Stop();
     }
     #endregion
 
     #region SoundControl
-    public void BGMVolumSet(float value)
+    public void BGMVolumSet(bool mute, float value)
     {
-        AudioSource[] audios = mBGMSoundObj.GetComponents<AudioSource>();
         mBGMVolume = value;
+        if (mBGMAudio == null) return;
 
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            audios[i].volume = mBGMVolume;
-        }
+        mBGMAudio.volume = mBGMVolume;
     }
-    public void SFXVolumSet(float value)
+    public void SFXVolumSet(bool mute, float value)
     {
-        AudioSource[] audios = mSFXSoundObj.GetComponents<AudioSource>();
         mSFXVolume = value;
+        if (mSFXAudio == null) return;
 
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            audios[i].volume = mSFXVolume;
-        }
+        mSFXAudio.volume = mSFXVolume;
     }
-    public void UIVolumSet(float value)
+    public void UIVolumSet(bool mute, float value)
     {
-        AudioSource[] audios = mUISoundObj.GetComponents<AudioSource>();
         mUIVolume = value;
+        if (mUIAudio == null) return;
 
-        for (int i = 0; i < audios.Length; i++)
-        {
-            if (audios[i] == null) continue;
-
-            audios[i].volume = mUIVolume;
-        }
+        mUIAudio.volume = mUIVolume;
     }
     #endregion
 }

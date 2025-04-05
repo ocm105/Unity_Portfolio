@@ -18,25 +18,12 @@ public class SettingPopup : UIPopup
     [SerializeField] Button sfxButton;
     [SerializeField] Slider bgmSlider;
     [SerializeField] Slider sfxSlider;
-    private float bgmVolume, sfxVolume;
-    private bool isBgm, isSfx;
     #endregion
 
-    #region View
-    [Header("View")]
-    [SerializeField] Sprite viewOnSprite;
-    [SerializeField] Sprite viewOffSprite;
-    [Tooltip("FPSView, QuarterView, ShoulderView")]
-    [SerializeField] Button[] viewButtons;
-    #endregion
-
-    #region Language
-    [Header("Language")]
-    [SerializeField] Sprite lggOnSprite;
-    [SerializeField] Sprite lggOffSprite;
-    [Tooltip("Korean, English")]
-    [SerializeField] Button[] lggButtons;
-    private LanguageType languageType;
+    #region Application
+    [Header("Application")]
+    [SerializeField] Button apkExitButton;
+    [SerializeField] Button apkExitCancel;
     #endregion
 
     [SerializeField] Button exitButton;
@@ -52,15 +39,11 @@ public class SettingPopup : UIPopup
     {
         bgmSlider.onValueChanged.AddListener((value) => OnChange_BGM(value));
         sfxSlider.onValueChanged.AddListener((value) => OnChange_SFX(value));
-        bgmButton.onClick.AddListener(() => OnClick_BGM(!isBgm));
-        sfxButton.onClick.AddListener(() => OnClick_SFX(!isSfx));
+        bgmButton.onClick.AddListener(() => OnClick_BGM(!localSettingInfo.isBgm));
+        sfxButton.onClick.AddListener(() => OnClick_SFX(!localSettingInfo.isSfx));
 
-        for (int i = 0; i < lggButtons.Length; i++)
-        {
-            LanguageType type = (LanguageType)i;
-            lggButtons[i].onClick.AddListener(() => OnClick_languageBtn(type));
-        }
-
+        apkExitButton.onClick.AddListener(OnClick_ApplicationExit);
+        apkExitCancel.onClick.AddListener(OnClick_Exit);
         exitButton.onClick.AddListener(OnClick_Exit);
     }
     protected override void OnShow()
@@ -73,80 +56,62 @@ public class SettingPopup : UIPopup
         localSettingInfo = LocalSave.GetSettingInfo();
         bgmSlider.value = localSettingInfo.bgmVolume;
         sfxSlider.value = localSettingInfo.sfxVolume;
-        isBgm = localSettingInfo.isBgm;
-        isSfx = localSettingInfo.isSfx;
+        bgmButton.image.sprite = SetSoundImage(localSettingInfo.isBgm);
+        sfxButton.image.sprite = SetSoundImage(localSettingInfo.isSfx);
+    }
 
-        OnClick_languageBtn(localSettingInfo.languageType);
+    private void SetLocalSetting()
+    {
+        LocalSave.SetSettingInfo(localSettingInfo);
     }
 
     #region Event
+    private Sprite SetSoundImage(bool isOn)
+    {
+        if (isOn)
+            return soundOnSprite;
+        else
+            return soundOffSprite;
+    }
     private void OnChange_BGM(float value)
     {
-        bgmVolume = value;
-
-        if (bgmVolume <= 0f)
-            bgmButton.image.sprite = soundOffSprite;
-        else
-            bgmButton.image.sprite = soundOnSprite;
+        localSettingInfo.bgmVolume = value;
+        SetLocalSetting();
     }
     private void OnChange_SFX(float value)
     {
-        sfxVolume = value;
-
-        if (sfxVolume <= 0f)
-            sfxButton.image.sprite = soundOffSprite;
-        else
-            sfxButton.image.sprite = soundOnSprite;
+        localSettingInfo.sfxVolume = value;
+        SetLocalSetting();
     }
+
     private void OnClick_BGM(bool isOn)
     {
-        isBgm = isOn;
-        bgmSlider.value = isSfx ? 1f : 0f;
+        SoundManager.Instance.PlaySFXSound("Button");
+        localSettingInfo.isBgm = isOn;
+        bgmButton.image.sprite = SetSoundImage(isOn);
+        SoundManager.Instance.BGMVolumSet(isOn, localSettingInfo.bgmVolume);
+        SetLocalSetting();
     }
     private void OnClick_SFX(bool isOn)
     {
-        isSfx = isOn;
-        sfxSlider.value = isSfx ? 1f : 0f;
+        SoundManager.Instance.PlaySFXSound("Button");
+        localSettingInfo.isSfx = isOn;
+        sfxButton.image.sprite = SetSoundImage(isOn);
+        SoundManager.Instance.SFXVolumSet(isOn, localSettingInfo.sfxVolume);
+        SetLocalSetting();
     }
 
-    private void OnClick_ViewBtn(CameraViewType type)
+    private void OnClick_ApplicationExit()
     {
-        for (int i = 0; i < viewButtons.Length; i++)
-        {
-            viewButtons[i].image.sprite = i == (int)type ? viewOnSprite : viewOffSprite;
-        }
-    }
-
-    private void OnClick_languageBtn(LanguageType type)
-    {
-        for (int i = 0; i < lggButtons.Length; i++)
-        {
-            lggButtons[i].image.sprite = i == (int)type ? lggOnSprite : lggOffSprite;
-        }
-
-        languageType = type;
+        SoundManager.Instance.PlaySFXSound("Button");
+        PopupState popupState = Les_UIManager.Instance.Popup<BasePopup_TwoBtn>().Open("앱을 종료하시겠습니까?");
+        popupState.OnYes = p => Application.Quit();
     }
 
     private void OnClick_Exit()
     {
-        localSettingInfo.bgmVolume = bgmSlider.value;
-        localSettingInfo.sfxVolume = sfxSlider.value;
-        localSettingInfo.isBgm = isBgm;
-        localSettingInfo.isSfx = isSfx;
-
-        localSettingInfo.languageType = languageType;
-
+        SoundManager.Instance.PlaySFXSound("Button");
         CloseTween(() => OnResult(PopupResults.Close));
-    }
-
-    protected override void OnResult(PopupResults result)
-    {
-        if (result == PopupResults.Close)
-        {
-            state.ResultParam = localSettingInfo;
-        }
-
-        base.OnResult(result);
     }
     #endregion
 
