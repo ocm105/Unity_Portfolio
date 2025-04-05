@@ -27,7 +27,6 @@ public class SettingPopup : UIPopup
     #endregion
 
     [SerializeField] Button exitButton;
-    private LocalSettingInfo localSettingInfo;
 
     public PopupState Open()
     {
@@ -39,8 +38,8 @@ public class SettingPopup : UIPopup
     {
         bgmSlider.onValueChanged.AddListener((value) => OnChange_BGM(value));
         sfxSlider.onValueChanged.AddListener((value) => OnChange_SFX(value));
-        bgmButton.onClick.AddListener(() => OnClick_BGM(!localSettingInfo.isBgm));
-        sfxButton.onClick.AddListener(() => OnClick_SFX(!localSettingInfo.isSfx));
+        bgmButton.onClick.AddListener(() => OnClick_BGM(!GameDataManager.Instance.localSettingInfo.isBgm));
+        sfxButton.onClick.AddListener(() => OnClick_SFX(!GameDataManager.Instance.localSettingInfo.isSfx));
 
         apkExitButton.onClick.AddListener(OnClick_ApplicationExit);
         apkExitCancel.onClick.AddListener(OnClick_Exit);
@@ -53,16 +52,10 @@ public class SettingPopup : UIPopup
     }
     private void Init()
     {
-        localSettingInfo = LocalSave.GetSettingInfo();
-        bgmSlider.value = localSettingInfo.bgmVolume;
-        sfxSlider.value = localSettingInfo.sfxVolume;
-        bgmButton.image.sprite = SetSoundImage(localSettingInfo.isBgm);
-        sfxButton.image.sprite = SetSoundImage(localSettingInfo.isSfx);
-    }
-
-    private void SetLocalSetting()
-    {
-        LocalSave.SetSettingInfo(localSettingInfo);
+        bgmSlider.value = GameDataManager.Instance.localSettingInfo.bgmVolume;
+        sfxSlider.value = GameDataManager.Instance.localSettingInfo.sfxVolume;
+        bgmButton.image.sprite = SetSoundImage(GameDataManager.Instance.localSettingInfo.isBgm);
+        sfxButton.image.sprite = SetSoundImage(GameDataManager.Instance.localSettingInfo.isSfx);
     }
 
     #region Event
@@ -75,30 +68,28 @@ public class SettingPopup : UIPopup
     }
     private void OnChange_BGM(float value)
     {
-        localSettingInfo.bgmVolume = value;
-        SetLocalSetting();
+        GameDataManager.Instance.localSettingInfo.bgmVolume = value;
+        SoundManager.Instance.BGMVolumSet(GameDataManager.Instance.localSettingInfo.isBgm, value);
     }
     private void OnChange_SFX(float value)
     {
-        localSettingInfo.sfxVolume = value;
-        SetLocalSetting();
+        GameDataManager.Instance.localSettingInfo.sfxVolume = value;
+        SoundManager.Instance.SFXVolumSet(GameDataManager.Instance.localSettingInfo.isSfx, value);
     }
 
     private void OnClick_BGM(bool isOn)
     {
         SoundManager.Instance.PlaySFXSound("Button");
-        localSettingInfo.isBgm = isOn;
+        GameDataManager.Instance.localSettingInfo.isBgm = isOn;
         bgmButton.image.sprite = SetSoundImage(isOn);
-        SoundManager.Instance.BGMVolumSet(isOn, localSettingInfo.bgmVolume);
-        SetLocalSetting();
+        SoundManager.Instance.BGMVolumSet(isOn, GameDataManager.Instance.localSettingInfo.bgmVolume);
     }
     private void OnClick_SFX(bool isOn)
     {
         SoundManager.Instance.PlaySFXSound("Button");
-        localSettingInfo.isSfx = isOn;
+        GameDataManager.Instance.localSettingInfo.isSfx = isOn;
         sfxButton.image.sprite = SetSoundImage(isOn);
-        SoundManager.Instance.SFXVolumSet(isOn, localSettingInfo.sfxVolume);
-        SetLocalSetting();
+        SoundManager.Instance.SFXVolumSet(isOn, GameDataManager.Instance.localSettingInfo.sfxVolume);
     }
 
     private void OnClick_ApplicationExit()

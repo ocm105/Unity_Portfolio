@@ -8,6 +8,7 @@ public class Setting : MonoBehaviour
 
     private void Awake()
     {
+        settingButton = this.GetComponent<Button>();
         settingButton.onClick.AddListener(OnClick_Setting);
     }
 

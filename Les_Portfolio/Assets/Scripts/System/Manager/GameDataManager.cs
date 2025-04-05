@@ -10,11 +10,14 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     public bool isDataLoad_Completed { get; private set; }
 
     public GameMaxScoreInfo gameMaxScoreInfo;
+    public LocalSettingInfo localSettingInfo;
+
 
     protected override void OnAwakeSingleton()
     {
         base.OnAwakeSingleton();
         DontDestroyOnLoad(this);
+        localSettingInfo = LocalSave.GetSettingInfo();
     }
 
     public IEnumerator LoadData()
@@ -32,5 +35,14 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     public void GameMaxScoreUpdate()
     {
         LocalSave.SetGameMaxScoreInfo(gameMaxScoreInfo);
+    }
+
+    public void SetLocalSettingData()
+    {
+        LocalSave.SetSettingInfo(localSettingInfo);
+    }
+    void OnApplicationQuit()
+    {
+        SetLocalSettingData();
     }
 }

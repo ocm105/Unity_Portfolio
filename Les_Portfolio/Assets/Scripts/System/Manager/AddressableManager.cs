@@ -98,7 +98,7 @@ public class AddressableManager : SingletonMonoBehaviour<AddressableManager>
     #region Get
     public IEnumerator LoadData()
     {
-        yield return StartCoroutine(GetAddressableFBX());
+        // yield return StartCoroutine(GetAddressableFBX());
         yield return StartCoroutine(GetAddressablePopup());
         yield return StartCoroutine(GetAddressableView());
         yield return StartCoroutine(GetAddressableSound());

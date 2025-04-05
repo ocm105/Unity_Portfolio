@@ -9,22 +9,14 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     private const string MAIN_BGM = "BGM_MAIN";
     private AudioClip main_Bgm;
 
-    private GameObject mBGMSoundObj;
-    private GameObject mSFXSoundObj;
-    private GameObject mUISoundObj;
+    [SerializeField] GameObject mBGMSoundObj;
+    [SerializeField] GameObject mSFXSoundObj;
+    [SerializeField] GameObject mUISoundObj;
     private string currentBgmKeyName;
 
     [HideInInspector] public AudioSource mBGMAudio;
     [HideInInspector] public AudioSource mSFXAudio;
     [HideInInspector] public AudioSource mUIAudio;
-
-    private float mBGMVolume = 1.0f;
-    private float mSFXVolume = 1.0f;
-    private float mUIVolume = 1.0f;
-
-    private bool isBGM = true;
-    private bool isSFX = true;
-    private bool isUI = true;
 
     protected override void OnAwakeSingleton()
     {
@@ -35,46 +27,10 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     private void Init()
     {
-        GetLocalSetting();
-
-        if (mBGMSoundObj != null)
-        {
-            Destroy(mBGMSoundObj);
-            mBGMSoundObj = null;
-        }
-        mBGMSoundObj = new GameObject("BGMSound");
         mBGMAudio = mBGMSoundObj.GetComponent<AudioSource>() == null ? mBGMSoundObj.AddComponent<AudioSource>() : mBGMSoundObj.GetComponent<AudioSource>();
-        mBGMSoundObj.transform.parent = this.transform;
-        currentBgmKeyName = "";
-
-        if (mSFXSoundObj != null)
-        {
-            Destroy(mSFXSoundObj);
-            mSFXSoundObj = null;
-        }
-        mSFXSoundObj = new GameObject("SFXSound");
         mSFXAudio = mSFXSoundObj.GetComponent<AudioSource>() == null ? mSFXSoundObj.AddComponent<AudioSource>() : mSFXSoundObj.GetComponent<AudioSource>();
-        mSFXSoundObj.transform.parent = this.transform;
-
-        if (mUISoundObj != null)
-        {
-            Destroy(mUISoundObj);
-            mUISoundObj = null;
-        }
-        mUISoundObj = new GameObject("UISound");
         mUIAudio = mUISoundObj.GetComponent<AudioSource>() == null ? mUISoundObj.AddComponent<AudioSource>() : mUISoundObj.GetComponent<AudioSource>();
-        mUISoundObj.transform.parent = this.transform;
-    }
-
-    private void GetLocalSetting()
-    {
-        LocalSettingInfo settingInfo = LocalSave.GetSettingInfo();
-        mBGMVolume = settingInfo.bgmVolume;
-        mSFXVolume = settingInfo.sfxVolume;
-        mUIVolume = settingInfo.sfxVolume;
-
-        isBGM = settingInfo.isBgm;
-        isSFX = settingInfo.isSfx;
+        currentBgmKeyName = "";
     }
 
     private void SetAudioSource(AudioSource audio, string audio_name, bool isLoop = false)
@@ -106,8 +62,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
         StopBGMSound();
         SetAudioSource(mBGMAudio, key, true);
-        mBGMAudio.mute = isBGM;
-        mBGMAudio.volume = mBGMVolume;
+        mBGMAudio.mute = !GameDataManager.Instance.localSettingInfo.isBgm;
+        mBGMAudio.volume = GameDataManager.Instance.localSettingInfo.bgmVolume;
         mBGMAudio.Play();
         currentBgmKeyName = key;
     }
@@ -118,8 +74,8 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
         StopBGMSound();
         SetAudioSource(mBGMAudio, audioClip, true);
-        mBGMAudio.mute = isBGM;
-        mBGMAudio.volume = mBGMVolume;
+        mBGMAudio.mute = !GameDataManager.Instance.localSettingInfo.isBgm;
+        mBGMAudio.volume = GameDataManager.Instance.localSettingInfo.bgmVolume;
         mBGMAudio.Play();
         currentBgmKeyName = audioClip.name;
     }
@@ -127,36 +83,36 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     public void PlaySFXSound(string key, bool isLoop = false)
     {
         SetAudioSource(mSFXAudio, key, isLoop);
-        mSFXAudio.mute = isSFX;
+        mSFXAudio.mute = !GameDataManager.Instance.localSettingInfo.isSfx;
         mSFXAudio.time = 0.0f;
         if (isLoop)
         {
-            mSFXAudio.volume = mSFXVolume;
+            mSFXAudio.volume = GameDataManager.Instance.localSettingInfo.sfxVolume;
             mSFXAudio.Play();
         }
         else
-            mSFXAudio.PlayOneShot(mSFXAudio.clip, mSFXVolume);
+            mSFXAudio.PlayOneShot(mSFXAudio.clip, GameDataManager.Instance.localSettingInfo.sfxVolume);
     }
     public void PlaySFXSound(AudioClip audioClip, bool isLoop = false)
     {
         SetAudioSource(mSFXAudio, audioClip);
-        mSFXAudio.mute = isSFX;
+        mSFXAudio.mute = !GameDataManager.Instance.localSettingInfo.isSfx;
         mSFXAudio.time = 0.0f;
         if (isLoop)
         {
-            mSFXAudio.volume = mSFXVolume;
+            mSFXAudio.volume = GameDataManager.Instance.localSettingInfo.sfxVolume;
             mSFXAudio.Play();
         }
         else
-            mSFXAudio.PlayOneShot(mSFXAudio.clip, mSFXVolume);
+            mSFXAudio.PlayOneShot(mSFXAudio.clip, GameDataManager.Instance.localSettingInfo.sfxVolume);
     }
 
     public void PlayUISound(string key)
     {
         SetAudioSource(mUIAudio, key);
-        mUIAudio.mute = isSFX;
+        mUIAudio.mute = !GameDataManager.Instance.localSettingInfo.isSfx;
         mUIAudio.time = 0.0f;
-        mUIAudio.PlayOneShot(mUIAudio.clip, mUIVolume);
+        mUIAudio.PlayOneShot(mUIAudio.clip, GameDataManager.Instance.localSettingInfo.sfxVolume);
     }
     #endregion
 
@@ -194,24 +150,28 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     #region SoundControl
     public void BGMVolumSet(bool mute, float value)
     {
-        mBGMVolume = value;
+        GameDataManager.Instance.localSettingInfo.bgmVolume = value;
         if (mBGMAudio == null) return;
 
-        mBGMAudio.volume = mBGMVolume;
+        mBGMAudio.mute = !mute;
+        mBGMAudio.volume = value;
     }
     public void SFXVolumSet(bool mute, float value)
     {
-        mSFXVolume = value;
+        GameDataManager.Instance.localSettingInfo.sfxVolume = value;
         if (mSFXAudio == null) return;
 
-        mSFXAudio.volume = mSFXVolume;
+        mSFXAudio.mute = !mute;
+        mSFXAudio.volume = value;
+        UIVolumSet(mute, value);
     }
     public void UIVolumSet(bool mute, float value)
     {
-        mUIVolume = value;
+        GameDataManager.Instance.localSettingInfo.sfxVolume = value;
         if (mUIAudio == null) return;
 
-        mUIAudio.volume = mUIVolume;
+        mUIAudio.mute = !mute;
+        mUIAudio.volume = value;
     }
     #endregion
 }
