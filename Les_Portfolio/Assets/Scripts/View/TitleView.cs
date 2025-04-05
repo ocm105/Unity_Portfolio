@@ -5,6 +5,7 @@ using UISystem;
 using TMPro;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using System;
 
 public class TitleView : UIView
 {
@@ -38,6 +39,7 @@ public class TitleView : UIView
         gitButton.onClick.AddListener(OnClick_Git);
         dongleGameButton.onClick.AddListener(OnClick_DongleGame);
     }
+
     protected override void OnShow()
     {
         SoundManager.Instance.PlayMainBGMSound();
