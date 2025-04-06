@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3745837306454034666
 RectTransform:
   m_ObjectHideFlags: 0
@@ -410,11 +410,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7331872624197534213}
+  m_Father: {fileID: 8525683783586575414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 280, y: 130}
+  m_AnchoredPosition: {x: -20, y: -20}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &8254076964996135770
@@ -726,6 +726,7 @@ RectTransform:
   m_Children:
   - {fileID: 6605356065846101606}
   - {fileID: 7331872624197534213}
+  - {fileID: 3745837306454034666}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -792,6 +793,7 @@ MonoBehaviour:
   mainObjects:
   - {fileID: 3223088402355695791}
   - {fileID: 8919017516886370795}
+  settingObj: {fileID: 3083197156087367432}
   loadBar: {fileID: 9089703271204169926}
   loadText: {fileID: 497461504404508376}
   gpgLoginButton: {fileID: 0}
@@ -1150,7 +1152,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6718362914979324802}
-  - {fileID: 3745837306454034666}
   m_Father: {fileID: 8525683783586575414}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}

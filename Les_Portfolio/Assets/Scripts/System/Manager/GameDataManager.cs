@@ -17,7 +17,6 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
     {
         base.OnAwakeSingleton();
         DontDestroyOnLoad(this);
-        localSettingInfo = LocalSave.GetSettingInfo();
     }
 
     public IEnumerator LoadData()
@@ -28,8 +27,14 @@ public class GameDataManager : SingletonMonoBehaviour<GameDataManager>
             yield return StartCoroutine(NetworkManager.Instance.GetPlayerDataRequest((resData) => player_Data = resData));
         }
 
-        gameMaxScoreInfo = LocalSave.GetGameMaxScoreInfo();
+
         isDataLoad_Completed = true;
+    }
+
+    public void GetLocalDatas()
+    {
+        localSettingInfo = LocalSave.GetSettingInfo();
+        gameMaxScoreInfo = LocalSave.GetGameMaxScoreInfo();
     }
 
     public void GameMaxScoreUpdate()

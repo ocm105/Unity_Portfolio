@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de8a0e8563180b143be62bf9206903e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  main_Bgm: {fileID: 8300000, guid: 2cebe5ef59f447d4d803665e3ecf1a2f, type: 3}
   mBGMSoundObj: {fileID: 5879685547899125260}
   mSFXSoundObj: {fileID: 4780081540594251787}
   mUISoundObj: {fileID: 6429484730676654}

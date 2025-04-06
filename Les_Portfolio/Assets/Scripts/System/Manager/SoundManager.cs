@@ -7,7 +7,7 @@ using UnityEngine;
 public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
     private const string MAIN_BGM = "BGM_MAIN";
-    private AudioClip main_Bgm;
+    [SerializeField] AudioClip main_Bgm;
 
     [SerializeField] GameObject mBGMSoundObj;
     [SerializeField] GameObject mSFXSoundObj;
@@ -20,7 +20,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
 
     protected override void OnAwakeSingleton()
     {
-        main_Bgm = Resources.Load<AudioClip>($"Sound/{MAIN_BGM}");
+        // main_Bgm = Resources.Load<AudioClip>($"Sound/{MAIN_BGM}");
         Init();
         DontDestroyOnLoad(this);
     }

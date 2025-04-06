@@ -10,6 +10,7 @@ using System;
 public class TitleView : UIView
 {
     [SerializeField] GameObject[] mainObjects;
+    [SerializeField] GameObject settingObj;
     [SerializeField] Image loadBar;
     [SerializeField] TextMeshProUGUI loadText;
     [SerializeField] Button gpgLoginButton;
@@ -42,7 +43,6 @@ public class TitleView : UIView
 
     protected override void OnShow()
     {
-        SoundManager.Instance.PlayMainBGMSound();
         Init();
         PlayGamesPlatform.Activate();
         GPGLogin();
@@ -64,6 +64,7 @@ public class TitleView : UIView
     private IEnumerator DataLoad()
     {
         OnChange_MainObject(MainState.Loading);
+        GameDataManager.Instance.GetLocalDatas();
 
         // Resource Down
         yield return StartCoroutine(AddressableLoad());
@@ -134,6 +135,19 @@ public class TitleView : UIView
         {
             isActive = i == (int)state ? true : false;
             mainObjects[i].SetActive(isActive);
+        }
+
+        switch (state)
+        {
+            case MainState.Loading:
+                settingObj.SetActive(false);
+                break;
+            case MainState.Start:
+                SoundManager.Instance.PlayMainBGMSound();
+                settingObj.SetActive(true);
+                break;
+            default:
+                break;
         }
     }
 
